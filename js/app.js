@@ -15,7 +15,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initDisputeGenerator();
   initGlobalSearch();
   initModal();
-  initApiKeyModal();
   initScannerModal();
   initVoiceAssistant();
   initChatbotUI();
@@ -97,11 +96,11 @@ function updateLanguageText() {
   const subtext = document.getElementById('hero-subtext');
 
   if (currentLang === 'hi') {
-    heading.innerHTML = 'ट्रैफिक पुलिस द्वारा रोके जाने पर <span>सरकारी सबूत</span> के साथ खड़े रहें';
-    subtext.textContent = 'अपनी स्थिति बोलकर बताएं — एआई कानूनी परिणाम का विश्लेषण करेगा, बोलने के लिए सटीक शब्द सुझाएगा और सरकारी सबूत दिखाएगा।';
+    heading.innerHTML = 'सरकारी <span>कानूनी सबूत</span> के साथ खड़े रहें';
+    subtext.textContent = 'अपनी स्थिति बोलकर या खोजकर तुरंत सरकारी आदेश और अदालत के फैसले देखें।';
   } else {
-    heading.innerHTML = 'Stand Firm with <span>Official Legal Proof</span> when Stopped by Police';
-    subtext.textContent = 'Don\'t know what to say to traffic police? Speak your situation below — AI will analyze the legal outcome, suggest exact words to say, and display official Govt circular proofs instantly.';
+    heading.innerHTML = 'Stand Firm with <span>Official Legal Proof</span>';
+    subtext.textContent = 'Choose an action below to get instant legal answers and official Government proof documents.';
   }
 
   renderEmergencyCards();
@@ -116,7 +115,7 @@ function renderEmergencyCards() {
   if (!container) return;
 
   container.innerHTML = RIGHTS_DATA.map(item => `
-    <div class="legal-card" style="border: 2px solid var(--accent-gold);">
+    <div class="legal-card" style="border: 1px solid var(--accent-gold);">
       <div>
         <div class="card-badge" style="background: rgba(251, 191, 36, 0.15); color: var(--accent-gold);">${item.badge}</div>
         <h4 class="card-title">${currentLang === 'hi' ? item.title_hi : item.title_en}</h4>
@@ -163,11 +162,9 @@ function renderOEMCards() {
   if (!container) return;
 
   container.innerHTML = OEM_COMPONENTS_DATA.map(item => `
-    <div class="legal-card" style="border-top: 4px solid var(--accent-gold);">
+    <div class="legal-card" style="border-top: 3px solid var(--accent-gold);">
       <div>
-        <div class="card-badge" style="color: var(--accent-gold); border-color: rgba(251, 191, 36, 0.3);">
-          ARAI/ICAT Homologated
-        </div>
+        <div class="card-badge" style="color: var(--accent-gold);">ARAI/ICAT Homologated</div>
         <h4 class="card-title">${item.component}</h4>
         <div class="card-act">Applicable: ${item.vehicles}</div>
         <div class="card-act" style="color: var(--accent-cyan);">Statute: ${item.act_section}</div>
@@ -196,7 +193,7 @@ function renderFinesTable() {
       <td><span style="font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 700;">${item.section}</span></td>
       <td><span class="fine-badge">${item.fine}</span></td>
       <td><strong>${item.authorized_rank}</strong></td>
-      <td><span style="font-size: 0.85rem; color: var(--text-secondary);">${item.defense}</span></td>
+      <td><span style="font-size: 0.82rem; color: var(--text-secondary);">${item.defense}</span></td>
     </tr>
   `).join('');
 }
@@ -207,9 +204,9 @@ function renderJudgementsCards() {
   if (!container) return;
 
   container.innerHTML = JUDGEMENTS_DATA.map(item => `
-    <div class="legal-card" style="border-left: 4px solid var(--accent-emerald);">
+    <div class="legal-card" style="border-left: 3px solid var(--accent-emerald);">
       <div>
-        <div class="card-badge" style="color: var(--accent-emerald); background: rgba(52, 211, 153, 0.1); border-color: rgba(52, 211, 153, 0.3);">
+        <div class="card-badge" style="color: var(--accent-emerald);">
           ${item.court} (${item.year})
         </div>
         <h4 class="card-title">${item.case_name}</h4>
@@ -218,7 +215,7 @@ function renderJudgementsCards() {
       </div>
       <div>
         <div class="card-verbatim">Citation: ${item.citation}</div>
-        <div class="card-tip" style="border-color: rgba(56, 189, 248, 0.3); color: var(--accent-cyan);">
+        <div class="card-tip" style="color: var(--accent-cyan);">
           ⚖️ <strong>Key Ruling:</strong> ${item.key_takeaway}
         </div>
       </div>
@@ -245,25 +242,54 @@ function speakCurrentTab(tabId) {
   trafficAudioEngine.speak(textToSpeak, currentLang);
 }
 
-// Voice Assistant Listener & Modal
+// Voice Assistant with Explicit Start / Stop & Analyze Controls
 function initVoiceAssistant() {
   const cardVoice = document.getElementById('card-action-voice');
   const modal = document.getElementById('voice-modal');
   const modalClose = document.getElementById('voice-modal-close');
   const modalBody = document.getElementById('voice-modal-body');
+  const icon = document.getElementById('voice-card-icon');
+  const badge = document.getElementById('voice-card-badge');
+  const title = document.getElementById('voice-card-title');
+  const desc = document.getElementById('voice-card-desc');
 
   modalClose.addEventListener('click', () => modal.classList.remove('active'));
 
   cardVoice.addEventListener('click', () => {
-    cardVoice.style.borderColor = 'var(--accent-rose)';
-    cardVoice.querySelector('h4').textContent = '🔴 Listening... Speak Now!';
+    // If ALREADY recording -> Stop & Analyze now!
+    if (trafficVoiceAnalyzer.isRecording) {
+      cardVoice.classList.remove('recording');
+      icon.textContent = '🎙️';
+      badge.textContent = 'TAP TO SPEAK';
+      badge.style.background = 'var(--accent-cyan)';
+      badge.style.color = '#090d16';
+      title.textContent = 'Speak Situation';
+      desc.textContent = 'Tap to record spoken story. Tap again to Stop & Analyze.';
+
+      trafficVoiceAnalyzer.stopAndAnalyze();
+      return;
+    }
+
+    // Otherwise -> Start Recording!
+    cardVoice.classList.add('recording');
+    icon.textContent = '⏹️';
+    badge.textContent = 'RECORDING';
+    badge.style.background = 'var(--accent-rose)';
+    badge.style.color = '#fff';
+    title.textContent = 'Tap to Stop & Analyze';
+    desc.textContent = 'Speak your situation clearly, then tap here to stop & process.';
 
     trafficVoiceAnalyzer.startListening(
       async (transcript) => {
-        cardVoice.style.borderColor = 'var(--accent-cyan)';
-        cardVoice.querySelector('h4').textContent = 'Speak Your Situation';
+        cardVoice.classList.remove('recording');
+        icon.textContent = '🎙️';
+        badge.textContent = 'TAP TO SPEAK';
+        badge.style.background = 'var(--accent-cyan)';
+        badge.style.color = '#090d16';
+        title.textContent = 'Speak Situation';
+        desc.textContent = 'Tap to record spoken story. Tap again to Stop & Analyze.';
 
-        modalBody.innerHTML = `<p style="color: var(--accent-cyan);">⏳ Analyzing spoken story: <em>"${transcript}"</em>...</p>`;
+        modalBody.innerHTML = `<p style="color: var(--accent-cyan);">⏳ Analyzing spoken situation: <em>"${transcript}"</em>...</p>`;
         modal.classList.add('active');
 
         const analysis = await trafficVoiceAnalyzer.analyzeSpokenSituation(transcript);
@@ -274,12 +300,12 @@ function initVoiceAssistant() {
           modalBody.innerHTML = `
             <p><strong>SPOKEN STORY:</strong> <em>"${transcript}"</em></p>
             <hr style="border-color: var(--border-color); margin: 12px 0;">
-            <p><strong style="color: var(--accent-gold);">1. IDENTIFIED LEGAL OUTCOME:</strong></p>
-            <p style="background: var(--bg-primary); padding: 10px; border-radius: 6px; font-size: 0.9rem;">${analysis.outcome}</p>
+            <p><strong style="color: var(--accent-gold);">1. LEGAL OUTCOME:</strong></p>
+            <p style="background: var(--bg-primary); padding: 10px; border-radius: 6px; font-size: 0.88rem;">${analysis.outcome}</p>
 
             <hr style="border-color: var(--border-color); margin: 12px 0;">
             <p><strong style="color: var(--accent-cyan);">2. SUGGESTED WORDS TO SAY TO OFFICER:</strong></p>
-            <p style="background: var(--bg-primary); border-left: 3px solid var(--accent-cyan); padding: 10px; font-style: italic; font-size: 0.92rem;">${analysis.suggested_words}</p>
+            <p style="background: var(--bg-primary); border-left: 3px solid var(--accent-cyan); padding: 10px; font-style: italic; font-size: 0.9rem;">${analysis.suggested_words}</p>
             
             <div style="display: flex; gap: 8px; margin-top: 10px;">
               <button class="btn-icon" onclick="navigator.clipboard.writeText('${analysis.suggested_words.replace(/'/g, "\\'")}')">📋 Copy Words</button>
@@ -287,14 +313,19 @@ function initVoiceAssistant() {
             </div>
 
             <hr style="border-color: var(--border-color); margin: 12px 0;">
-            <p><strong style="color: var(--accent-emerald);">3. OFFICIAL DOCUMENT PROOF TO SHOW:</strong></p>
+            <p><strong style="color: var(--accent-emerald);">3. OFFICIAL DOCUMENT PROOF:</strong></p>
             <a href="${analysis.document_link}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; margin-top: 6px;">📄 Open ${analysis.document_title}</a>
           `;
         }
       },
       (err) => {
-        cardVoice.style.borderColor = 'var(--accent-cyan)';
-        cardVoice.querySelector('h4').textContent = 'Speak Your Situation';
+        cardVoice.classList.remove('recording');
+        icon.textContent = '🎙️';
+        badge.textContent = 'TAP TO SPEAK';
+        badge.style.background = 'var(--accent-cyan)';
+        badge.style.color = '#090d16';
+        title.textContent = 'Speak Situation';
+        desc.textContent = 'Tap to record spoken story. Tap again to Stop & Analyze.';
         alert(`Voice Assistant: ${err}`);
       }
     );
@@ -357,7 +388,7 @@ function initGlobalSearch() {
 
 // Dispute Generator Binding
 function initDisputeGenerator() {
-  const fields = ['applicantName', 'vehicleNo', 'challanNo', 'challanDate', 'city', 'disputeReason', 'applicantPhone', 'applicantEmail'];
+  const fields = ['applicantName', 'vehicleNo', 'challanNo', 'challanDate', 'city', 'disputeReason'];
   const previewText = document.getElementById('dispute-preview-text');
   const copyBtn = document.getElementById('btn-copy-dispute');
 
@@ -434,14 +465,14 @@ function copyProofText(id) {
 // AI Vision OCR Scanner Modal
 function initScannerModal() {
   const modal = document.getElementById('scanner-modal');
-  const openBtn = document.getElementById('btn-open-scanner');
+  const openBtn = document.getElementById('card-action-scan');
   const closeBtn = document.getElementById('scanner-modal-close');
   const fileInput = document.getElementById('scanner-file-input');
   const modeSelect = document.getElementById('scanner-mode');
   const fileNameDisplay = document.getElementById('scanner-file-name');
   const resultDisplay = document.getElementById('scanner-result');
 
-  openBtn.addEventListener('click', () => modal.classList.add('active'));
+  if (openBtn) openBtn.addEventListener('click', () => modal.classList.add('active'));
   closeBtn.addEventListener('click', () => modal.classList.remove('active'));
 
   fileInput.addEventListener('change', async (e) => {
@@ -468,36 +499,6 @@ function initScannerModal() {
     } catch (err) {
       resultDisplay.textContent = `❌ Scan failed: ${err.message}`;
     }
-  });
-}
-
-// Gemini API Key Settings Modal
-function initApiKeyModal() {
-  const modal = document.getElementById('apikey-modal');
-  const btnOpen = document.getElementById('btn-apikey-settings');
-  const btnClose = document.getElementById('apikey-modal-close');
-  const inputKey = document.getElementById('input-gemini-key');
-  const btnSave = document.getElementById('btn-save-key');
-  const btnClear = document.getElementById('btn-clear-key');
-
-  btnOpen.addEventListener('click', () => {
-    inputKey.value = trafficChatbot.getApiKey();
-    modal.classList.add('active');
-  });
-
-  btnClose.addEventListener('click', () => modal.classList.remove('active'));
-
-  btnSave.addEventListener('click', () => {
-    trafficChatbot.setApiKey(inputKey.value);
-    alert('Gemini API Key saved successfully!');
-    modal.classList.remove('active');
-  });
-
-  btnClear.addEventListener('click', () => {
-    trafficChatbot.setApiKey('');
-    inputKey.value = '';
-    alert('Gemini API Key cleared.');
-    modal.classList.remove('active');
   });
 }
 
@@ -539,13 +540,6 @@ function initChatbotUI() {
   inputEl.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') handleUserSend();
   });
-}
-
-function sendQuickPrompt(promptText) {
-  const inputEl = document.getElementById('chatbot-input');
-  const sendBtn = document.getElementById('chatbot-send-btn');
-  inputEl.value = promptText;
-  sendBtn.click();
 }
 
 function formatMarkdownText(text) {
