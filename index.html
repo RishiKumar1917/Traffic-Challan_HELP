@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Traffic-Challan HELP | Citizen Traffic Rights & OEM Legal Reference Portal</title>
+  <meta name="description" content="Know your rights during traffic police stops in India. Access MoRTH circulars, DigiLocker validity proofs, OEM component homologation rules (Section 52 MV Act), AI Legal Chatbot, and e-challan dispute generator.">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Top Emergency Quick Banner -->
+  <div class="emergency-alert-bar">
+    <span>🚨 Stopped by Traffic Police right now? Show Emergency Legal Proof Cards instantly on your phone.</span>
+    <button id="btn-emergency-mode">⚡ Police Stop Mode</button>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header>
+    <div class="nav-container">
+      <a href="#" class="brand">
+        <div class="brand-logo">⚖️</div>
+        <div class="brand-text">
+          <h1>Traffic-Challan HELP</h1>
+          <p>Indian Traffic Rights, OEM Specs & Legal Safeguards</p>
+        </div>
+      </a>
+      <div class="nav-actions">
+        <button class="btn-icon" id="btn-apikey-settings" title="Configure Gemini API Key">🔑 API Key</button>
+        <button class="btn-icon" id="btn-lang-toggle" title="Switch Language">🌐 <span id="lang-label">Eng / हिंदी</span></button>
+        <button class="btn-icon" id="btn-theme-toggle" title="Toggle Theme">🌙 Theme</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero & Search Section -->
+  <section class="hero">
+    <div class="hero-badge">📜 Verified Govt Circulars, ARAI Homologation & MV Act 2019</div>
+    <h2 id="hero-heading">Stand Firm with <span>Legal Proof</span> when Stopped by Traffic Police</h2>
+    <p id="hero-subtext">Access verified MoRTH circulars, Section 4 IT Act DigiLocker rules, OEM factory component homologation proof (Section 52 MV Act), and ask our AI Chatbot for instant guidance.</p>
+
+    <!-- Global Search Bar -->
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <input type="text" id="global-search" placeholder="Search offences or components (e.g. stock exhaust, DigiLocker, DRLs, helmet, fine)...">
+        <button id="btn-search">Search</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section Navigation Tabs -->
+  <div class="tabs-navigation">
+    <button class="tab-btn active" data-tab="emergency-tab">🚨 Emergency Cards</button>
+    <button class="tab-btn" data-tab="rights-tab">📜 Statutory Rights & Circulars</button>
+    <button class="tab-btn" data-tab="oem-tab">🛠️ OEM Component & Homologation</button>
+    <button class="tab-btn" data-tab="fines-tab">💰 Offence & Fine Finder</button>
+    <button class="tab-btn" data-tab="judgements-tab">🏛️ Court Precedents</button>
+    <button class="tab-btn" data-tab="dispute-tab">✍️ E-Challan Dispute Generator</button>
+  </div>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+
+    <!-- Tab 1: Emergency Quick Cards -->
+    <div class="tab-pane active" id="emergency-tab">
+      <h3 style="margin-bottom: 20px; color: var(--accent-gold);">⚡ Instant Proof Cards for Mobile Display</h3>
+      <div class="cards-grid" id="emergency-cards-grid">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+
+    <!-- Tab 2: Statutory Rights & MoRTH Circulars -->
+    <div class="tab-pane" id="rights-tab">
+      <h3 style="margin-bottom: 20px; color: var(--accent-cyan);">📜 Essential Statutory Provisions & MoRTH Circulars</h3>
+      <div class="cards-grid" id="rights-cards-grid">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+
+    <!-- Tab 3: OEM Vehicle Components & Homologation (Section 52 MV Act) -->
+    <div class="tab-pane" id="oem-tab">
+      <h3 style="margin-bottom: 20px; color: var(--accent-gold);">🛠️ OEM Factory Vehicle Components & Section 52 MV Act Proof</h3>
+      <p style="margin-bottom: 20px; color: var(--text-secondary);">Police often wrongfully claim factory silencers, OEM alloy wheels, DRLs, or leg guards are illegal alterations. Under Section 52 MV Act & CMVR Rule 126, factory-fitted parts are certified by ARAI/ICAT under Form 22 Homologation and are 100% legal.</p>
+      <div class="cards-grid" id="oem-cards-grid">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+
+    <!-- Tab 4: Offence & Fine Finder -->
+    <div class="tab-pane" id="fines-tab">
+      <h3 style="margin-bottom: 20px; color: var(--accent-gold);">💰 Motor Vehicles Act Fine & Compounding Schedule</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Offence & Description</th>
+              <th>MV Act Section</th>
+              <th>Standard Fine / Penalty</th>
+              <th>Authorized Officer Rank</th>
+              <th>Legal Defense / Exception</th>
+            </tr>
+          </thead>
+          <tbody id="fines-table-body">
+            <!-- Rendered dynamically via app.js -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tab 5: Court Precedents -->
+    <div class="tab-pane" id="judgements-tab">
+      <h3 style="margin-bottom: 20px; color: var(--accent-emerald);">🏛️ High Court & Police Conduct Precedents</h3>
+      <div class="cards-grid" id="judgements-cards-grid">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+
+    <!-- Tab 6: E-Challan Dispute Generator -->
+    <div class="tab-pane" id="dispute-tab">
+      <h3 style="margin-bottom: 20px; color: var(--accent-rose);">✍️ Generate E-Challan / Police Misconduct Dispute Letter</h3>
+      <div class="generator-container">
+        <div class="form-box">
+          <h4 style="margin-bottom: 16px; color: var(--accent-cyan);">Enter Dispute Details</h4>
+          <div class="form-group">
+            <label for="applicantName">Full Name of Vehicle Owner/Driver</label>
+            <input type="text" id="applicantName" placeholder="e.g. Ramesh Kumar">
+          </div>
+          <div class="form-group">
+            <label for="vehicleNo">Vehicle Registration Number</label>
+            <input type="text" id="vehicleNo" placeholder="e.g. DL-01-AB-1234">
+          </div>
+          <div class="form-group">
+            <label for="challanNo">E-Challan Number (if applicable)</label>
+            <input type="text" id="challanNo" placeholder="e.g. DL1234567890">
+          </div>
+          <div class="form-group">
+            <label for="challanDate">Date of Offence / Challan</label>
+            <input type="date" id="challanDate">
+          </div>
+          <div class="form-group">
+            <label for="city">City / Traffic Police Jurisdiction</label>
+            <input type="text" id="city" placeholder="e.g. New Delhi / Bengaluru / Mumbai">
+          </div>
+          <div class="form-group">
+            <label for="disputeReason">Reason for Dispute</label>
+            <select id="disputeReason">
+              <option value="digilocker_refusal">DigiLocker / mParivahan Document Refused by Police</option>
+              <option value="no_photo_proof">E-Challan lacks photo/video proof of violation</option>
+              <option value="no_speed_signage">Speed trap camera without visible speed limit signage</option>
+              <option value="unauthorized_constable">Spot fine levied by unauthorized constable</option>
+              <option value="incorrect_vehicle">Wrong vehicle number captured by camera</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="applicantPhone">Phone Number</label>
+            <input type="text" id="applicantPhone" placeholder="e.g. 9876543210">
+          </div>
+          <div class="form-group">
+            <label for="applicantEmail">Email Address</label>
+            <input type="email" id="applicantEmail" placeholder="e.g. name@example.com">
+          </div>
+        </div>
+
+        <div class="preview-box">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+            <h4 style="color: var(--accent-gold);">Generated Representation Notice</h4>
+            <button class="btn-icon" id="btn-copy-dispute">📋 Copy Text</button>
+          </div>
+          <pre class="preview-text" id="dispute-preview-text">Fill in the form to generate official dispute letter representation...</pre>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- High Contrast Presentation Modal for Police Display -->
+  <div class="modal-overlay" id="proof-modal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modal-title">STATUTORY PROOF FOR POLICE CHECKING</h3>
+        <button class="modal-close" id="modal-close-btn">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Gemini API Key Settings Modal -->
+  <div class="modal-overlay" id="apikey-modal">
+    <div class="modal-card" style="border-color: var(--accent-cyan);">
+      <div class="modal-header" style="border-color: var(--accent-cyan);">
+        <h3 style="color: var(--accent-cyan);">🔑 Gemini API Key Settings</h3>
+        <button class="modal-close" id="apikey-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 12px;">Add your <strong>Google Gemini API Key</strong> to power live AI legal assistance, real-time dataset analysis, and custom query resolution.</p>
+        <div class="form-group">
+          <label for="input-gemini-key">Gemini API Key</label>
+          <input type="password" id="input-gemini-key" placeholder="AIzaSy..." style="font-family: var(--font-mono);">
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 16px;">
+          <button class="btn-icon" id="btn-save-key" style="background: var(--accent-cyan); color: #000; font-weight: 700; flex: 1;">Save API Key</button>
+          <button class="btn-icon" id="btn-clear-key" style="border-color: var(--accent-rose); color: var(--accent-rose);">Clear Key</button>
+        </div>
+        <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 12px;">* Your API key is stored strictly locally in your browser's LocalStorage and is never uploaded anywhere else.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating AI Chatbot Button & Widget -->
+  <div class="chatbot-trigger" id="chatbot-trigger" title="Open AI Traffic Legal Assistant">
+    💬 <span class="chatbot-badge">AI</span>
+  </div>
+
+  <div class="chatbot-window" id="chatbot-window">
+    <div class="chatbot-header">
+      <div style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 1.2rem;">🤖</span>
+        <div>
+          <h4 style="font-size: 0.95rem; font-weight: 700;">TrafficGuard AI</h4>
+          <span style="font-size: 0.7rem; color: var(--accent-emerald);">● Online (Gemini Legal Assistant)</span>
+        </div>
+      </div>
+      <button class="chatbot-close" id="chatbot-close-btn">&times;</button>
+    </div>
+
+    <div class="chatbot-body" id="chatbot-messages">
+      <div class="chat-msg bot">
+        👋 Hi! I'm <strong>TrafficGuard AI</strong>. Ask me anything about Indian traffic laws, MoRTH circulars, DigiLocker validity, or whether your vehicle's OEM factory components are legal!
+      </div>
+      <div class="quick-prompts">
+        <button class="prompt-chip" onclick="sendQuickPrompt('Is my stock Royal Enfield exhaust legal?')">🏍️ Stock RE Silencer</button>
+        <button class="prompt-chip" onclick="sendQuickPrompt('Is DigiLocker valid for police checks?')">📱 DigiLocker Validity</button>
+        <button class="prompt-chip" onclick="sendQuickPrompt('Can police snatch my car keys?')">🔑 Key Snatching Rule</button>
+        <button class="prompt-chip" onclick="sendQuickPrompt('Are factory DRL LED lights legal?')">💡 Factory LED / DRLs</button>
+      </div>
+    </div>
+
+    <div class="chatbot-footer">
+      <input type="text" id="chatbot-input" placeholder="Type your legal query...">
+      <button id="chatbot-send-btn">Send</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/rights-data.js"></script>
+  <script src="js/judgements-data.js"></script>
+  <script src="js/oem-components-data.js"></script>
+  <script src="js/dispute-generator.js"></script>
+  <script src="js/chatbot.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>

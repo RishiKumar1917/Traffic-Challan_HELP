@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: traffic-challan-help
+    env: static
+    buildCommand: ""
+    staticPublishPath: ./
+    headers:
+      - path: /*
+        name: Access-Control-Allow-Origin
+        value: "*"
