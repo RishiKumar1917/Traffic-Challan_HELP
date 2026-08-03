@@ -83,11 +83,11 @@ function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   const themeBtn = document.getElementById('btn-theme-toggle');
   if (theme === 'light') {
-    themeBtn.textContent = '☀️ Light';
+    themeBtn.querySelector('span').textContent = 'Light';
   } else if (theme === 'emergency') {
-    themeBtn.textContent = '⚡ SOS High Contrast';
+    themeBtn.querySelector('span').textContent = 'SOS High Contrast';
   } else {
-    themeBtn.textContent = '🌙 Dark';
+    themeBtn.querySelector('span').textContent = 'Dark';
   }
 }
 
@@ -100,7 +100,7 @@ function updateLanguageText() {
     subtext.textContent = 'अपनी स्थिति बोलकर या खोजकर तुरंत सरकारी आदेश और अदालत के फैसले देखें।';
   } else {
     heading.innerHTML = 'Stand Firm with <span>Official Legal Proof</span>';
-    subtext.textContent = 'Choose an action below to get instant legal answers and official Government proof documents.';
+    subtext.textContent = 'Choose an action below to get instant legal answers and official Government proof documents with glowing statutory highlights.';
   }
 
   renderEmergencyCards();
@@ -125,7 +125,7 @@ function renderEmergencyCards() {
       <div>
         <div class="card-verbatim">📜 "${item.verbatim_text}"</div>
         <div class="card-actions">
-          <button class="btn-secondary" onclick="openProofModal('${item.id}')">📲 Present Full Proof Screen</button>
+          <button class="btn-secondary" onclick="openProofModal('${item.id}')">Present Full Proof Screen</button>
         </div>
       </div>
     </div>
@@ -148,8 +148,8 @@ function renderRightsCards() {
       <div>
         <div class="card-tip">💡 <strong>Action Tip:</strong> ${item.actionable_tip}</div>
         <div class="card-actions">
-          <button class="btn-secondary" onclick="copyProofText('${item.id}')">📋 Copy Clause</button>
-          <button class="btn-secondary" onclick="openProofModal('${item.id}')">🔍 Inspect Official Text</button>
+          <button class="btn-secondary" onclick="copyProofText('${item.id}')">Copy Clause</button>
+          <button class="btn-secondary" onclick="openProofModal('${item.id}')">Inspect Official Text</button>
         </div>
       </div>
     </div>
@@ -242,24 +242,27 @@ function speakCurrentTab(tabId) {
   trafficAudioEngine.speak(textToSpeak, currentLang);
 }
 
-// Voice Assistant with Explicit Start / Stop & Analyze Controls
+// Voice Assistant with Vector Icons
 function initVoiceAssistant() {
   const cardVoice = document.getElementById('card-action-voice');
   const modal = document.getElementById('voice-modal');
   const modalClose = document.getElementById('voice-modal-close');
   const modalBody = document.getElementById('voice-modal-body');
-  const icon = document.getElementById('voice-card-icon');
+  const iconBox = document.getElementById('voice-card-icon');
   const badge = document.getElementById('voice-card-badge');
   const title = document.getElementById('voice-card-title');
   const desc = document.getElementById('voice-card-desc');
 
+  const micSvg = `<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>`;
+  const stopSvg = `<svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>`;
+
   modalClose.addEventListener('click', () => modal.classList.remove('active'));
 
   cardVoice.addEventListener('click', () => {
-    // If ALREADY recording -> Stop & Analyze now!
     if (trafficVoiceAnalyzer.isRecording) {
       cardVoice.classList.remove('recording');
-      icon.textContent = '🎙️';
+      iconBox.innerHTML = micSvg;
+      iconBox.style.color = 'var(--accent-cyan)';
       badge.textContent = 'TAP TO SPEAK';
       badge.style.background = 'var(--accent-cyan)';
       badge.style.color = '#090d16';
@@ -270,9 +273,9 @@ function initVoiceAssistant() {
       return;
     }
 
-    // Otherwise -> Start Recording!
     cardVoice.classList.add('recording');
-    icon.textContent = '⏹️';
+    iconBox.innerHTML = stopSvg;
+    iconBox.style.color = 'var(--accent-rose)';
     badge.textContent = 'RECORDING';
     badge.style.background = 'var(--accent-rose)';
     badge.style.color = '#fff';
@@ -282,7 +285,8 @@ function initVoiceAssistant() {
     trafficVoiceAnalyzer.startListening(
       async (transcript) => {
         cardVoice.classList.remove('recording');
-        icon.textContent = '🎙️';
+        iconBox.innerHTML = micSvg;
+        iconBox.style.color = 'var(--accent-cyan)';
         badge.textContent = 'TAP TO SPEAK';
         badge.style.background = 'var(--accent-cyan)';
         badge.style.color = '#090d16';
@@ -308,19 +312,20 @@ function initVoiceAssistant() {
             <p style="background: var(--bg-primary); border-left: 3px solid var(--accent-cyan); padding: 10px; font-style: italic; font-size: 0.9rem;">${analysis.suggested_words}</p>
             
             <div style="display: flex; gap: 8px; margin-top: 10px;">
-              <button class="btn-icon" onclick="navigator.clipboard.writeText('${analysis.suggested_words.replace(/'/g, "\\'")}')">📋 Copy Words</button>
-              <button class="btn-icon" onclick="trafficAudioEngine.speak('${analysis.suggested_words.replace(/'/g, "\\'")}', '${currentLang}')">🔊 Play Voice</button>
+              <button class="btn-icon" onclick="navigator.clipboard.writeText('${analysis.suggested_words.replace(/'/g, "\\'")}')">Copy Words</button>
+              <button class="btn-icon" onclick="trafficAudioEngine.speak('${analysis.suggested_words.replace(/'/g, "\\'")}', '${currentLang}')">Play Voice</button>
             </div>
 
             <hr style="border-color: var(--border-color); margin: 12px 0;">
             <p><strong style="color: var(--accent-emerald);">3. OFFICIAL DOCUMENT PROOF:</strong></p>
-            <a href="${analysis.document_link}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; margin-top: 6px;">📄 Open ${analysis.document_title}</a>
+            <a href="${analysis.document_link}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; margin-top: 6px;">Open ${analysis.document_title}</a>
           `;
         }
       },
       (err) => {
         cardVoice.classList.remove('recording');
-        icon.textContent = '🎙️';
+        iconBox.innerHTML = micSvg;
+        iconBox.style.color = 'var(--accent-cyan)';
         badge.textContent = 'TAP TO SPEAK';
         badge.style.background = 'var(--accent-cyan)';
         badge.style.color = '#090d16';
@@ -413,8 +418,8 @@ function initDisputeGenerator() {
 
   copyBtn.addEventListener('click', () => {
     navigator.clipboard.writeText(previewText.textContent);
-    copyBtn.textContent = '✅ Copied!';
-    setTimeout(() => { copyBtn.textContent = '📋 Copy Text'; }, 2000);
+    copyBtn.textContent = 'Copied!';
+    setTimeout(() => { copyBtn.textContent = 'Copy Text'; }, 2000);
   });
 }
 
@@ -481,7 +486,7 @@ function initScannerModal() {
 
     fileNameDisplay.textContent = `Selected: ${file.name} (${Math.round(file.size / 1024)} KB)`;
     resultDisplay.style.display = 'block';
-    resultDisplay.textContent = '⏳ Scanning image with Gemini Vision AI...';
+    resultDisplay.textContent = 'Scanning image with Gemini Vision AI...';
 
     try {
       const mode = modeSelect.value;
@@ -497,7 +502,7 @@ function initScannerModal() {
         if (previewText) previewText.dispatchEvent(new Event('input'));
       }
     } catch (err) {
-      resultDisplay.textContent = `❌ Scan failed: ${err.message}`;
+      resultDisplay.textContent = `Scan failed: ${err.message}`;
     }
   });
 }

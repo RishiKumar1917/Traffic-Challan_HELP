@@ -12,23 +12,36 @@
 
   <!-- Top Emergency Bar -->
   <div class="emergency-alert-bar">
-    <span>🚨 Stopped by Police? Show official MoRTH Circulars instantly.</span>
+    <div style="display: flex; align-items: center; gap: 8px;">
+      <svg class="svg-icon" viewBox="0 0 24 24" width="16" height="16" stroke="#f43f5e" stroke-width="2" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Stopped by Police? Show official MoRTH Circulars instantly.</span>
+    </div>
     <button id="btn-emergency-mode">⚡ Police Stop Mode</button>
   </div>
 
-  <!-- Header Navbar (Clean & Uncluttered) -->
+  <!-- Header Navbar (Clean & Uncluttered with Professional Icons) -->
   <header>
     <div class="nav-container">
       <a href="#" class="brand">
-        <div class="brand-logo">⚖️</div>
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" width="20" height="20" stroke="var(--accent-gold)" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3v18M3 7h18M6 12l-3 7h6l-3-7zM18 12l-3 7h6l-3-7z"/>
+          </svg>
+        </div>
         <div class="brand-text">
           <h1>Traffic-Challan HELP</h1>
           <p>Citizen Legal Rights & Highlighted Proofs</p>
         </div>
       </a>
       <div class="nav-actions">
-        <button class="btn-icon" id="btn-lang-toggle" title="Switch Language">🌐 <span id="lang-label">Eng / हिंदी</span></button>
-        <button class="btn-icon" id="btn-theme-toggle" title="Toggle Theme">🌙 Theme</button>
+        <button class="btn-icon" id="btn-lang-toggle" title="Switch Language">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+          <span id="lang-label">Eng / हिंदी</span>
+        </button>
+        <button class="btn-icon" id="btn-theme-toggle" title="Toggle Theme">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <span>Theme</span>
+        </button>
       </div>
     </div>
   </header>
@@ -38,13 +51,20 @@
     <h2 id="hero-heading" style="font-size: 2.1rem; margin-bottom: 10px;">Stand Firm with <span>Official Legal Proof</span></h2>
     <p id="hero-subtext" style="font-size: 0.95rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 24px;">Choose an action below to get instant legal answers and official Government proof documents with glowing statutory highlights.</p>
 
-    <!-- 3 Clean Action Cards -->
+    <!-- 3 Professional Action Cards with Vector Icons -->
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; text-align: left;">
       
       <!-- Action 1: Voice Record & Stop -->
       <div class="action-card" id="card-action-voice">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-          <span style="font-size: 1.8rem;" id="voice-card-icon">🎙️</span>
+          <div class="action-icon-box" style="color: var(--accent-cyan);" id="voice-card-icon">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+              <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+              <line x1="12" y1="19" x2="12" y2="23"/>
+              <line x1="8" y1="23" x2="16" y2="23"/>
+            </svg>
+          </div>
           <span class="card-badge" id="voice-card-badge" style="background: var(--accent-cyan); color: #090d16; margin: 0;">TAP TO SPEAK</span>
         </div>
         <h4 style="font-size: 1.05rem; color: var(--text-primary); margin-bottom: 4px;" id="voice-card-title">Speak Situation</h4>
@@ -54,7 +74,12 @@
       <!-- Action 2: Scan Photo -->
       <div class="action-card" id="card-action-scan">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-          <span style="font-size: 1.8rem;">📷</span>
+          <div class="action-icon-box" style="color: var(--accent-gold);">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+              <circle cx="12" cy="13" r="4"/>
+            </svg>
+          </div>
           <span class="card-badge" style="background: var(--accent-gold-soft); color: var(--accent-gold); margin: 0;">AI SCAN</span>
         </div>
         <h4 style="font-size: 1.05rem; color: var(--text-primary); margin-bottom: 4px;">Scan Slip or Part</h4>
@@ -64,7 +89,15 @@
       <!-- Action 3: Official Proofs -->
       <div class="action-card" onclick="document.querySelector('[data-tab=\'docs-tab\']').click()">
         <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-          <span style="font-size: 1.8rem;">📄</span>
+          <div class="action-icon-box" style="color: var(--accent-emerald);">
+            <svg viewBox="0 0 24 24" width="24" height="24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="16" y1="13" x2="8" y2="13"/>
+              <line x1="16" y1="17" x2="8" y2="17"/>
+              <polyline points="10 9 9 9 8 9"/>
+            </svg>
+          </div>
           <span class="card-badge" style="background: var(--accent-emerald-soft); color: var(--accent-emerald); margin: 0;">PROOFS</span>
         </div>
         <h4 style="font-size: 1.05rem; color: var(--text-primary); margin-bottom: 4px;">Govt Circulars</h4>
@@ -77,7 +110,10 @@
     <div class="search-container">
       <div class="search-input-wrapper">
         <input type="text" id="global-search" placeholder="Or search offence or rule (e.g. DigiLocker, silencer, key)...">
-        <button id="btn-search">Search</button>
+        <button id="btn-search">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2.5" fill="none" style="vertical-align: middle; margin-right: 4px;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <span>Search</span>
+        </button>
       </div>
     </div>
   </section>
@@ -99,8 +135,11 @@
     <!-- Tab 1: Emergency Quick Cards -->
     <div class="tab-pane active" id="emergency-tab">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 style="color: var(--accent-gold); font-size: 1.1rem;">⚡ Emergency Proof Cards</h3>
-        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('emergency-tab')">🔊 Read Out</button>
+        <h3 style="color: var(--accent-gold); font-size: 1.1rem;">Emergency Proof Cards</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('emergency-tab')">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span>Read Out</span>
+        </button>
       </div>
       <div class="cards-grid" id="emergency-cards-grid">
         <!-- Rendered dynamically -->
@@ -110,8 +149,11 @@
     <!-- Tab 2: Official Govt Circulars & Gazette Documents -->
     <div class="tab-pane" id="docs-tab">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
-        <h3 style="color: var(--accent-cyan); font-size: 1.1rem;">📄 Official Government Letterhead Proofs with Yellow Statutory Highlighting</h3>
-        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('docs-tab')">🔊 Read Out</button>
+        <h3 style="color: var(--accent-cyan); font-size: 1.1rem;">Official Government Letterhead Proofs</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('docs-tab')">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span>Read Out</span>
+        </button>
       </div>
       
       <div class="cards-grid">
@@ -122,7 +164,7 @@
             <p class="card-summary">Official MoRTH circular mandating that digital DL, RC, Insurance, and PUC in DigiLocker/mParivahan are treated at par with physical originals under Section 4 IT Act.</p>
           </div>
           <div class="card-actions">
-            <a href="docs/MoRTH_Circular_RT11036_64_2017_MV.html#highlight-digilocker" target="_blank" class="btn-secondary" style="text-decoration: none;">📄 Open Circular with Highlighted Clause</a>
+            <a href="docs/MoRTH_Circular_RT11036_64_2017_MV.html#highlight-digilocker" target="_blank" class="btn-secondary" style="text-decoration: none;">Open Official Circular Proof</a>
           </div>
         </div>
 
@@ -133,7 +175,7 @@
             <p class="card-summary">Statutory provision proving that factory-fitted OEM components (silencers, alloys, DRLs) certified by ARAI/ICAT under Form 22 are exempt from alteration penalties.</p>
           </div>
           <div class="card-actions">
-            <a href="docs/Section_52_ARAI_Homologation_Proof.html#highlight-section52" target="_blank" class="btn-secondary" style="text-decoration: none;">📄 Open Statutory Document with Highlight</a>
+            <a href="docs/Section_52_ARAI_Homologation_Proof.html#highlight-section52" target="_blank" class="btn-secondary" style="text-decoration: none;">Open Statutory Document</a>
           </div>
         </div>
 
@@ -144,7 +186,7 @@
             <p class="card-summary">Full index of official file reference numbers, dates of issue, issuing authorities, and statutory rules.</p>
           </div>
           <div class="card-actions">
-            <a href="docs/OFFICIAL_GOVT_CIRCULARS_INDEX.html" target="_blank" class="btn-secondary" style="text-decoration: none;">📄 View Highlighted Gazette Index</a>
+            <a href="docs/OFFICIAL_GOVT_CIRCULARS_INDEX.html" target="_blank" class="btn-secondary" style="text-decoration: none;">View Gazette Index</a>
           </div>
         </div>
       </div>
@@ -153,8 +195,11 @@
     <!-- Tab 3: Statutory Rights -->
     <div class="tab-pane" id="rights-tab">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 style="color: var(--accent-cyan); font-size: 1.1rem;">📜 Essential Statutory Provisions</h3>
-        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('rights-tab')">🔊 Read Out</button>
+        <h3 style="color: var(--accent-cyan); font-size: 1.1rem;">Essential Statutory Provisions</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('rights-tab')">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span>Read Out</span>
+        </button>
       </div>
       <div class="cards-grid" id="rights-cards-grid">
         <!-- Rendered dynamically -->
@@ -164,8 +209,11 @@
     <!-- Tab 4: OEM Vehicle Components -->
     <div class="tab-pane" id="oem-tab">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-        <h3 style="color: var(--accent-gold); font-size: 1.1rem;">🛠️ OEM Component Homologation Proofs</h3>
-        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('oem-tab')">🔊 Read Out</button>
+        <h3 style="color: var(--accent-gold); font-size: 1.1rem;">OEM Component Homologation Proofs</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('oem-tab')">
+          <svg viewBox="0 0 24 24" width="14" height="14" stroke="currentColor" stroke-width="2" fill="none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span>Read Out</span>
+        </button>
       </div>
       <div class="cards-grid" id="oem-cards-grid">
         <!-- Rendered dynamically -->
@@ -174,7 +222,7 @@
 
     <!-- Tab 5: Fine Schedule -->
     <div class="tab-pane" id="fines-tab">
-      <h3 style="margin-bottom: 16px; color: var(--accent-gold); font-size: 1.1rem;">💰 Motor Vehicles Act Fine Schedule</h3>
+      <h3 style="margin-bottom: 16px; color: var(--accent-gold); font-size: 1.1rem;">Motor Vehicles Act Fine Schedule</h3>
       <div class="table-container">
         <table>
           <thead>
@@ -195,7 +243,7 @@
 
     <!-- Tab 6: Court Precedents -->
     <div class="tab-pane" id="judgements-tab">
-      <h3 style="margin-bottom: 16px; color: var(--accent-emerald); font-size: 1.1rem;">🏛️ High Court Precedents</h3>
+      <h3 style="margin-bottom: 16px; color: var(--accent-emerald); font-size: 1.1rem;">High Court Precedents</h3>
       <div class="cards-grid" id="judgements-cards-grid">
         <!-- Rendered dynamically -->
       </div>
@@ -203,7 +251,7 @@
 
     <!-- Tab 7: Dispute Generator -->
     <div class="tab-pane" id="dispute-tab">
-      <h3 style="margin-bottom: 16px; color: var(--accent-rose); font-size: 1.1rem;">✍️ E-Challan Dispute Generator</h3>
+      <h3 style="margin-bottom: 16px; color: var(--accent-rose); font-size: 1.1rem;">E-Challan Dispute Generator</h3>
       <div class="generator-container">
         <div class="form-box">
           <h4 style="margin-bottom: 14px; color: var(--accent-cyan); font-size: 0.95rem;">Enter Dispute Details</h4>
@@ -241,7 +289,7 @@
         <div class="preview-box">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
             <h4 style="color: var(--accent-gold); font-size: 0.95rem;">Generated Notice</h4>
-            <button class="btn-icon" id="btn-copy-dispute">📋 Copy Text</button>
+            <button class="btn-icon" id="btn-copy-dispute">Copy Text</button>
           </div>
           <pre class="preview-text" id="dispute-preview-text">Fill in details to generate representation notice...</pre>
         </div>
@@ -254,7 +302,7 @@
   <div class="modal-overlay" id="voice-modal">
     <div class="modal-card" style="border-color: var(--accent-cyan); max-width: 580px;">
       <div class="modal-header" style="border-color: var(--accent-cyan);">
-        <h3 style="color: var(--accent-cyan);">🎙️ Voice Legal Analysis</h3>
+        <h3 style="color: var(--accent-cyan);">Voice Legal Analysis</h3>
         <button class="modal-close" id="voice-modal-close">&times;</button>
       </div>
       <div class="modal-body" id="voice-modal-body">
@@ -267,7 +315,7 @@
   <div class="modal-overlay" id="scanner-modal">
     <div class="modal-card" style="border-color: var(--accent-cyan); max-width: 580px;">
       <div class="modal-header" style="border-color: var(--accent-cyan);">
-        <h3 style="color: var(--accent-cyan);">📷 AI Photo & E-Challan Scanner</h3>
+        <h3 style="color: var(--accent-cyan);">AI Photo & E-Challan Scanner</h3>
         <button class="modal-close" id="scanner-modal-close">&times;</button>
       </div>
       <div class="modal-body">
@@ -281,7 +329,7 @@
 
         <div style="border: 2px dashed var(--border-highlight); padding: 24px 16px; text-align: center; border-radius: var(--radius-md); background: var(--bg-primary); margin-bottom: 14px;">
           <input type="file" id="scanner-file-input" accept="image/*" style="display: none;">
-          <button class="btn-icon" onclick="document.getElementById('scanner-file-input').click()" style="margin: 0 auto; background: var(--accent-cyan); color: #090d16; font-weight: 700;">📁 Upload / Take Photo</button>
+          <button class="btn-icon" onclick="document.getElementById('scanner-file-input').click()" style="margin: 0 auto; background: var(--accent-cyan); color: #090d16; font-weight: 700;">Upload / Take Photo</button>
           <p id="scanner-file-name" style="margin-top: 8px; font-size: 0.78rem; color: var(--text-muted);">No image selected yet</p>
         </div>
 
@@ -307,13 +355,14 @@
 
   <!-- Floating AI Chatbot Button & Widget -->
   <div class="chatbot-trigger" id="chatbot-trigger" title="Open AI Traffic Legal Assistant">
-    💬 <span class="chatbot-badge">AI</span>
+    <svg viewBox="0 0 24 24" width="22" height="22" stroke="#090d16" stroke-width="2.2" fill="none"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="chatbot-badge">AI</span>
   </div>
 
   <div class="chatbot-window" id="chatbot-window">
     <div class="chatbot-header">
       <div style="display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 1.1rem;">🤖</span>
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="var(--accent-cyan)" stroke-width="2" fill="none"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>
         <div>
           <h4 style="font-size: 0.9rem; font-weight: 700;">TrafficGuard AI</h4>
           <span style="font-size: 0.68rem; color: var(--accent-emerald);">● Online Assistant</span>
