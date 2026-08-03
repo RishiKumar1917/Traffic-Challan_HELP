@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traffic-Challan HELP | Citizen Traffic Rights & OEM Legal Reference Portal</title>
-  <meta name="description" content="Know your rights during traffic police stops in India. Access MoRTH circulars, DigiLocker validity proofs, OEM component homologation rules (Section 52 MV Act), AI Legal Chatbot, and e-challan dispute generator.">
+  <title>Traffic-Challan HELP | Citizen Traffic Rights & Official Govt Proofs Portal</title>
+  <meta name="description" content="Know your rights during traffic police stops in India. Access official MoRTH circulars, DigiLocker validity proofs, OEM component homologation rules (Section 52 MV Act), AI Legal Chatbot, and e-challan dispute generator.">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
   <!-- Top Emergency Quick Banner -->
   <div class="emergency-alert-bar">
-    <span>🚨 Stopped by Traffic Police right now? Show Emergency Legal Proof Cards instantly on your phone.</span>
+    <span>🚨 Stopped by Traffic Police right now? Show Official Govt Circulars & Proof Documents on your phone.</span>
     <button id="btn-emergency-mode">⚡ Police Stop Mode</button>
   </div>
 
@@ -22,7 +22,7 @@
         <div class="brand-logo">⚖️</div>
         <div class="brand-text">
           <h1>Traffic-Challan HELP</h1>
-          <p>Indian Traffic Rights, OEM Specs & Legal Safeguards</p>
+          <p>Indian Traffic Rights, OEM Specs & Official Govt Circulars</p>
         </div>
       </a>
       <div class="nav-actions">
@@ -35,14 +35,14 @@
 
   <!-- Hero & Search Section -->
   <section class="hero">
-    <div class="hero-badge">📜 Verified Govt Circulars, ARAI Homologation & MV Act 2019</div>
-    <h2 id="hero-heading">Stand Firm with <span>Legal Proof</span> when Stopped by Traffic Police</h2>
-    <p id="hero-subtext">Access verified MoRTH circulars, Section 4 IT Act DigiLocker rules, OEM factory component homologation proof (Section 52 MV Act), and ask our AI Chatbot for instant guidance.</p>
+    <div class="hero-badge">📜 Verified Official Govt Circulars, Gazette Seals & MV Act 2019</div>
+    <h2 id="hero-heading">Stand Firm with <span>Official Govt Proof</span> when Stopped by Traffic Police</h2>
+    <p id="hero-subtext">Access verified MoRTH circular letterheads, Section 4 IT Act Gazette rules, OEM factory component homologation proof (Section 52 MV Act), and ask our AI Chatbot for instant guidance.</p>
 
     <!-- Global Search Bar -->
     <div class="search-container">
       <div class="search-input-wrapper">
-        <input type="text" id="global-search" placeholder="Search offences or components (e.g. stock exhaust, DigiLocker, DRLs, helmet, fine)...">
+        <input type="text" id="global-search" placeholder="Search offences, circular numbers, or OEM components (e.g. RT-11036, DigiLocker, stock exhaust)...">
         <button id="btn-search">Search</button>
       </div>
     </div>
@@ -51,11 +51,12 @@
   <!-- Section Navigation Tabs -->
   <div class="tabs-navigation">
     <button class="tab-btn active" data-tab="emergency-tab">🚨 Emergency Cards</button>
-    <button class="tab-btn" data-tab="rights-tab">📜 Statutory Rights & Circulars</button>
+    <button class="tab-btn" data-tab="docs-tab">📄 Official Govt Circulars & Gazette</button>
+    <button class="tab-btn" data-tab="rights-tab">📜 Statutory Rights</button>
     <button class="tab-btn" data-tab="oem-tab">🛠️ OEM Component & Homologation</button>
     <button class="tab-btn" data-tab="fines-tab">💰 Offence & Fine Finder</button>
     <button class="tab-btn" data-tab="judgements-tab">🏛️ Court Precedents</button>
-    <button class="tab-btn" data-tab="dispute-tab">✍️ E-Challan Dispute Generator</button>
+    <button class="tab-btn" data-tab="dispute-tab">✍️ Dispute Letter Generator</button>
   </div>
 
   <!-- Main Content Area -->
@@ -69,7 +70,51 @@
       </div>
     </div>
 
-    <!-- Tab 2: Statutory Rights & MoRTH Circulars -->
+    <!-- Tab 2: Official Govt Circulars & Gazette Documents -->
+    <div class="tab-pane" id="docs-tab">
+      <h3 style="margin-bottom: 12px; color: var(--accent-cyan);">📄 Official Government Letterhead Circulars & Gazette Proofs</h3>
+      <p style="margin-bottom: 20px; color: var(--text-secondary);">When traffic police officers claim that digital information from internet searches is invalid, open these official Government of India Ministry letterheads and Gazette notifications carrying official file numbers and statutory authority.</p>
+      
+      <div class="cards-grid">
+        <div class="legal-card" style="border-left: 4px solid var(--accent-cyan);">
+          <div>
+            <div class="card-badge">Ref: RT-11036/64/2017-MV</div>
+            <h4 class="card-title">MoRTH Official Circular on DigiLocker / mParivahan</h4>
+            <div class="card-act">Ministry of Road Transport & Highways, Govt of India</div>
+            <p class="card-summary">Official government circular mandating that enforcement officers MUST accept Driving License, RC, Insurance, and PUC in electronic format on DigiLocker or mParivahan as equivalent to original physical documents under Section 4 IT Act.</p>
+          </div>
+          <div class="card-actions">
+            <a href="docs/MoRTH_Circular_RT11036_64_2017_MV.html" target="_blank" class="btn-secondary" style="text-decoration: none;">📄 Open Official Letterhead Proof</a>
+          </div>
+        </div>
+
+        <div class="legal-card" style="border-left: 4px solid var(--accent-gold);">
+          <div>
+            <div class="card-badge">Section 52 & Rule 126 CMVR</div>
+            <h4 class="card-title">ARAI Homologation & Section 52 Proviso Document</h4>
+            <div class="card-act">Motor Vehicles Act 1988 Proviso & Form 22 Certification</div>
+            <p class="card-summary">Official statutory provision proving that factory-fitted OEM components (silencers, alloy wheels, DRLs, crash guards) certified under ARAI/ICAT Type Approval are exempt from alteration penalties under Section 52 MV Act.</p>
+          </div>
+          <div class="card-actions">
+            <a href="docs/Section_52_ARAI_Homologation_Proof.html" target="_blank" class="btn-secondary" style="text-decoration: none;">📄 Open Statutory Provision Document</a>
+          </div>
+        </div>
+
+        <div class="legal-card" style="border-left: 4px solid var(--accent-emerald);">
+          <div>
+            <div class="card-badge">Index & Metadata</div>
+            <h4 class="card-title">Complete Government Circulars & Gazette Index</h4>
+            <div class="card-act">Stored on GitHub Repository (docs/ folder)</div>
+            <p class="card-summary">Full index of official file reference numbers, dates of issue, issuing authorities, and statutory rules stored permanently in the GitHub project repository.</p>
+          </div>
+          <div class="card-actions">
+            <a href="docs/OFFICIAL_GOVT_CIRCULARS_INDEX.md" target="_blank" class="btn-secondary" style="text-decoration: none;">📄 View Full Circulars Index</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Statutory Rights & MoRTH Circulars -->
     <div class="tab-pane" id="rights-tab">
       <h3 style="margin-bottom: 20px; color: var(--accent-cyan);">📜 Essential Statutory Provisions & MoRTH Circulars</h3>
       <div class="cards-grid" id="rights-cards-grid">
@@ -77,7 +122,7 @@
       </div>
     </div>
 
-    <!-- Tab 3: OEM Vehicle Components & Homologation (Section 52 MV Act) -->
+    <!-- Tab 4: OEM Vehicle Components & Homologation (Section 52 MV Act) -->
     <div class="tab-pane" id="oem-tab">
       <h3 style="margin-bottom: 20px; color: var(--accent-gold);">🛠️ OEM Factory Vehicle Components & Section 52 MV Act Proof</h3>
       <p style="margin-bottom: 20px; color: var(--text-secondary);">Police often wrongfully claim factory silencers, OEM alloy wheels, DRLs, or leg guards are illegal alterations. Under Section 52 MV Act & CMVR Rule 126, factory-fitted parts are certified by ARAI/ICAT under Form 22 Homologation and are 100% legal.</p>
@@ -86,7 +131,7 @@
       </div>
     </div>
 
-    <!-- Tab 4: Offence & Fine Finder -->
+    <!-- Tab 5: Offence & Fine Finder -->
     <div class="tab-pane" id="fines-tab">
       <h3 style="margin-bottom: 20px; color: var(--accent-gold);">💰 Motor Vehicles Act Fine & Compounding Schedule</h3>
       <div class="table-container">
@@ -107,7 +152,7 @@
       </div>
     </div>
 
-    <!-- Tab 5: Court Precedents -->
+    <!-- Tab 6: Court Precedents -->
     <div class="tab-pane" id="judgements-tab">
       <h3 style="margin-bottom: 20px; color: var(--accent-emerald);">🏛️ High Court & Police Conduct Precedents</h3>
       <div class="cards-grid" id="judgements-cards-grid">
@@ -115,7 +160,7 @@
       </div>
     </div>
 
-    <!-- Tab 6: E-Challan Dispute Generator -->
+    <!-- Tab 7: E-Challan Dispute Generator -->
     <div class="tab-pane" id="dispute-tab">
       <h3 style="margin-bottom: 20px; color: var(--accent-rose);">✍️ Generate E-Challan / Police Misconduct Dispute Letter</h3>
       <div class="generator-container">
