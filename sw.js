@@ -1,6 +1,6 @@
-// Traffic-Challan HELP - Service Worker (Cache Refresh v5)
+// Traffic-Challan HELP - Service Worker (Cache Refresh v6)
 
-const CACHE_NAME = 'traffic-help-v5';
+const CACHE_NAME = 'traffic-help-v6';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -17,7 +17,8 @@ const ASSETS_TO_CACHE = [
   './js/app.js',
   './docs/OFFICIAL_GOVT_CIRCULARS_INDEX.html',
   './docs/MoRTH_Circular_RT11036_64_2017_MV.html',
-  './docs/Section_52_ARAI_Homologation_Proof.html'
+  './docs/Section_52_ARAI_Homologation_Proof.html',
+  './docs/Deep_dive.md'
 ];
 
 self.addEventListener('install', (event) => {

@@ -1,4 +1,4 @@
-// Traffic-Challan HELP - Statutory Rights & MoRTH Circular Dataset
+// Traffic-Challan HELP - Statutory Rights & Complete 30 Violations Dataset
 
 const RIGHTS_DATA = [
   {
@@ -81,69 +81,276 @@ const RIGHTS_DATA = [
   }
 ];
 
+// Complete Top 30 Motor Vehicles Act Offence Database
 const OFFENCES_DATABASE = [
   {
-    offence: "Driving Without Helmet (Two-Wheeler)",
-    offence_hi: "बिना हेलमेट दोपहिया चलाना",
-    section: "Section 129 / Section 194D",
-    fine: "₹1,000 + 3 Months License Disqualification",
+    id: 1,
+    offence: "Driving Without Helmet (Rider or Pillion)",
+    offence_hi: "बिना हेलमेट दोपहिया चलाना (चालक या पीछे बैठा व्यक्ति)",
+    section: "Section 129 r/w 194D",
+    fine: "₹1,000 + 3-Month License Suspension",
     authorized_rank: "Sub-Inspector / Head Constable (State notification dependent)",
-    defense: "Standard BIS certified helmet required for driver and pillion above 4 yrs. Exemption for Sikhs wearing turbans (Section 129 proviso)."
+    defense: "Mandatory for both rider and pillion above 4 years. Proviso to Sec 129 exempts turban-wearing Sikhs."
   },
   {
-    offence: "Driving Without Seatbelt",
+    id: 2,
+    offence: "Driving Without Seat Belt (Driver or Passenger)",
     offence_hi: "बिना सीटबेल्ट गाड़ी चलाना",
-    section: "Section 138(3) / Section 194B",
+    section: "Section 194B(1)",
     fine: "₹1,000",
     authorized_rank: "Head Constable / Sub-Inspector",
-    defense: "Applies to front seat passengers and rear seats equipped with seatbelts. Medical exemption requires valid doctor certificate."
+    defense: "Applies to drivers and all passengers in seats equipped with factory seatbelts. Doctor medical exemption certificate is valid."
   },
   {
+    id: 3,
+    offence: "Driving with Unsecured Child (Under 14 Years)",
+    offence_hi: "14 साल से कम उम्र के बच्चे को बिना सुरक्षा चलाएँ रखना",
+    section: "Section 194B(2)",
+    fine: "₹1,000",
+    authorized_rank: "Sub-Inspector",
+    defense: "Children under 14 must be secured via seatbelt or dedicated Child Restraint System (CRS)."
+  },
+  {
+    id: 4,
+    offence: "Triple Riding on Two-Wheeler",
+    offence_hi: "दोपहिया पर तीन लोग बैठना (ट्रिपल राइडिंग)",
+    section: "Section 128 r/w 194C",
+    fine: "₹1,000 + 3-Month License Suspension",
+    authorized_rank: "Head Constable / Sub-Inspector",
+    defense: "Section 128 restricts two-wheelers to driver plus one pillion only."
+  },
+  {
+    id: 5,
     offence: "Driving Without Valid License (DL)",
     offence_hi: "बिना ड्राइविंग लाइसेंस गाड़ी चलाना",
-    section: "Section 3 / Section 181",
-    fine: "₹5,000 or Community Service",
+    section: "Section 3 r/w 181",
+    fine: "₹5,000 (1st) / ₹10,000 + 3 Mo Jail (Repeat)",
     authorized_rank: "Sub-Inspector / ASI",
-    defense: "Valid DL in DigiLocker / mParivahan is 100% legal. If forgotten, 15 days grace period under CMVR Rule 139 applies."
+    defense: "Digital DL on DigiLocker/mParivahan is 100% valid. 15-day grace period under CMVR Rule 139 applies if DL is active."
   },
   {
-    offence: "Driving Without Pollution Certificate (PUC)",
+    id: 6,
+    offence: "Underage / Juvenile Driving",
+    offence_hi: "नाबालिग द्वारा गाड़ी चलाना",
+    section: "Section 199A",
+    fine: "₹25,000 + 3 Yrs Jail (Guardian) + 1-Yr RC Cancellation",
+    authorized_rank: "Sub-Inspector & Above",
+    defense: "Holds parent/guardian legally responsible. Minor blocked from DL until age 25."
+  },
+  {
+    id: 7,
+    offence: "Driving Unregistered Vehicle / Expired RC",
+    offence_hi: "बिना रजिस्ट्रेशन (RC) के वाहन चलाना",
+    section: "Section 39 r/w 192",
+    fine: "₹2,000-₹5,000 (1st) / ₹5,000-₹10,000 + 1 Yr Jail (Repeat)",
+    authorized_rank: "Sub-Inspector & Above",
+    defense: "Temporary registration is valid for transit. mParivahan digital RC is accepted."
+  },
+  {
+    id: 8,
+    offence: "Driving Uninsured Vehicle",
+    offence_hi: "बिना बीमा (Insurance) गाड़ी चलाना",
+    section: "Section 146 r/w 196",
+    fine: "₹2,000 and/or 3 Mo Jail (1st) / ₹4,000 (Repeat)",
+    authorized_rank: "Sub-Inspector",
+    defense: "Mandatory third-party insurance required under Sec 146. Digital copy on DigiLocker valid."
+  },
+  {
+    id: 9,
+    offence: "Driving Without Pollution Certificate (PUCC)",
     offence_hi: "बिना प्रदूषण प्रमाण पत्र (PUC) गाड़ी चलाना",
     section: "Section 190(2)",
-    fine: "Up to ₹10,000 or up to 3 months imprisonment",
+    fine: "₹10,000 + 3-Month License Suspension",
     authorized_rank: "Sub-Inspector / Traffic Inspector",
-    defense: "New vehicles are exempt for 1 year from registration date. Digital PUC on parivahan portal is valid."
+    defense: "New vehicles are exempt for 1 year from registration date. Online mParivahan PUCC record valid."
   },
   {
-    offence: "Over Speeding (Light Motor Vehicle)",
-    offence_hi: "तेज गति से गाड़ी चलाना (कार/बाइक)",
-    section: "Section 112 / Section 183(1)",
-    fine: "₹1,000 - ₹2,000 (LMV) / ₹2,000 - ₹4,000 (HMV)",
+    id: 10,
+    offence: "Over-speeding (Light Motor Vehicle - LMV)",
+    offence_hi: "तेज गति से कार/बाइक चलाना (LMV)",
+    section: "Section 112 r/w 183(1)(i)",
+    fine: "₹1,000 - ₹2,000 (1st) / ₹2,000 - ₹4,000 (Repeat)",
     authorized_rank: "Sub-Inspector (Speed radar operator)",
-    defense: "Speed traps must have legally mandated speed limit signage visible before the trap location."
+    defense: "Camera speed traps must have legally mandated speed limit signboards placed before enforcement zone."
   },
   {
-    offence: "Using Mobile Phone While Driving",
-    offence_hi: "गाड़ी चलाते समय मोबाइल का उपयोग",
-    section: "Section 184(c)",
-    fine: "₹1,000 - ₹5,000 (First Offence)",
-    authorized_rank: "Sub-Inspector / Traffic Police",
-    defense: "Using mobile solely for navigation (placed in dashboard holder) without holding in hand is permitted under MoRTH guidelines."
+    id: 11,
+    offence: "Over-speeding (Medium / Heavy Transport Vehicle)",
+    offence_hi: "तेज गति से बस/ट्रक चलाना (HMV)",
+    section: "Section 112 r/w 183(1)(ii)",
+    fine: "₹2,000 - ₹4,000 (1st) / License Seizure (Repeat)",
+    authorized_rank: "Sub-Inspector & Above",
+    defense: "Targeted at commercial transport speed governors and radar logs."
   },
   {
+    id: 12,
     offence: "Drunk Driving (BAC > 30mg/100ml)",
     offence_hi: "शराब पीकर गाड़ी चलाना",
     section: "Section 185",
-    fine: "Up to ₹10,000 and/or 6 months jail (1st offence)",
+    fine: "₹10,000 and/or 6 Mo Jail (1st) / ₹15,000 + 2 Yrs Jail (Repeat)",
     authorized_rank: "Sub-Inspector & Above",
-    defense: "Mandatory breathalyzer test required. Right to medical blood test within 2 hours at Govt hospital."
+    defense: "Requires breathalyzer reading > 30mg/100ml. Citizen has statutory right to request medical blood test within 2 hours."
   },
   {
-    offence: "Red Light Jump / Signal Violation",
+    id: 13,
+    offence: "Using Mobile Phone While Driving",
+    offence_hi: "गाड़ी चलाते समय मोबाइल फोन का उपयोग",
+    section: "Section 184(c)",
+    fine: "₹1,000 - ₹5,000 (1st) / ₹10,000 (Repeat within 3 yrs)",
+    authorized_rank: "Sub-Inspector",
+    defense: "Handheld phone use is prohibited. Using phone mounted in dashboard holder solely for navigation is permitted under MoRTH guidelines."
+  },
+  {
+    id: 14,
+    offence: "Rash, Negligent, or Dangerous Driving",
+    offence_hi: "खतरनाक या लापरवाही से गाड़ी चलाना",
+    section: "Section 184",
+    fine: "₹1,000 - ₹5,000 and/or 1 Yr Jail (1st) / ₹10,000 (Repeat)",
+    authorized_rank: "Sub-Inspector & Above",
+    defense: "Covers jumping red lights, unsafe overtaking, and driving against traffic flow."
+  },
+  {
+    id: 15,
+    offence: "Speed Racing or Speed Trials on Public Road",
+    offence_hi: "सार्वजनिक सड़क पर रेसिंग या स्पीड रेस",
+    section: "Section 189",
+    fine: "₹5,000 and/or 3 Mo Jail (1st) / ₹10,000 + 1 Yr Jail (Repeat)",
+    authorized_rank: "Sub-Inspector & Above",
+    defense: "Illegal street racing without written permission from State Government."
+  },
+  {
+    id: 16,
+    offence: "Red Light Jump / Traffic Signal Violation",
     offence_hi: "रेड लाइट जंप करना",
-    section: "Section 184(a)",
+    section: "Section 184 / Section 177",
     fine: "₹1,000 - ₹5,000",
-    authorized_rank: "Sub-Inspector / Camera E-Challan",
-    defense: "Clear photo showing vehicle crossing stop line while light was RED is required. Yellow light entry is valid."
+    authorized_rank: "Sub-Inspector / Camera RLVD System",
+    defense: "Camera e-challan must provide clear photo evidence of vehicle crossing stop line while signal light was RED."
+  },
+  {
+    id: 17,
+    offence: "Wrong-Side / One-Way Driving",
+    offence_hi: "गलत दिशा (रॉन्ग साइड) में गाड़ी चलाना",
+    section: "Section 184 / Section 177",
+    fine: "₹1,000 - ₹5,000",
+    authorized_rank: "Sub-Inspector",
+    defense: "Driving against specified one-way direction or traffic flow."
+  },
+  {
+    id: 18,
+    offence: "Blocking Emergency Vehicles (Ambulance / Fire)",
+    offence_hi: "आपातकालीन वाहन (एम्बुलेंस/फायर) का रास्ता रोकना",
+    section: "Section 194E",
+    fine: "₹10,000 and/or 6 Months Jail",
+    authorized_rank: "Sub-Inspector & Above",
+    defense: "Failing to draw to the side of the road to allow free passage to emergency service vehicles."
+  },
+  {
+    id: 19,
+    offence: "Commercial Transport Fitness Certificate Lapses",
+    offence_hi: "कमर्शियल वाहन का फिटनेस सर्टिफिकेट खत्म होना",
+    section: "Section 56 r/w 192",
+    fine: "₹5,000 - ₹10,000 (1st) / ₹10,000 + 1 Yr Jail (Repeat)",
+    authorized_rank: "RTO Inspector / Sub-Inspector",
+    defense: "Driving commercial vehicle without fitness certificate is deemed equivalent to driving unregistered vehicle."
+  },
+  {
+    id: 20,
+    offence: "Operating Commercial Vehicle Without Valid Permit",
+    offence_hi: "बिना परमिट कमर्शियल वाहन चलाना",
+    section: "Section 66 r/w 192A",
+    fine: "₹10,000 and/or 6 Mo Jail (1st) / ₹10,000 + 1 Yr Jail (Repeat)",
+    authorized_rank: "RTO Inspector / Sub-Inspector",
+    defense: "Exemption for emergency services, government transport, and exempted agricultural haulage."
+  },
+  {
+    id: 21,
+    offence: "Overloading Cargo Goods Vehicle",
+    offence_hi: "माल गाड़ी में ओवरलोडिंग",
+    section: "Section 113 r/w 194",
+    fine: "₹20,000 basic + ₹2,000 per extra Metric Tonne",
+    authorized_rank: "RTO Weighbridge / Sub-Inspector",
+    defense: "Vehicle must be weighed on certified RTO weighbridge. Excess load must be offloaded at owner expense."
+  },
+  {
+    id: 22,
+    offence: "Overloading Passengers in Public Transport",
+    offence_hi: "पैसेंजर बस/ऑटो में क्षमता से अधिक सवारी बैठाना",
+    section: "Section 194A",
+    fine: "₹200 per extra Passenger",
+    authorized_rank: "Sub-Inspector",
+    defense: "Carrying passengers in excess of seating capacity stated in vehicle registration."
+  },
+  {
+    id: 23,
+    offence: "Carrying Commercial Goods in Private Passenger Car",
+    offence_hi: "निजी कार में कमर्शियल सामान ढोना",
+    section: "Section 192A",
+    fine: "₹10,000",
+    authorized_rank: "RTO Inspector / Sub-Inspector",
+    defense: "Personal luggage is permitted. Commercial freight carriage in private LMV violates registration category."
+  },
+  {
+    id: 24,
+    offence: "Needless Honking / Pressure Horn / Silent Zone Use",
+    offence_hi: "अनावश्यक हॉर्न बजाना या प्रेशर हॉर्न का उपयोग",
+    section: "Section 194F",
+    fine: "₹1,000 (1st) / ₹2,000 (Repeat)",
+    authorized_rank: "Head Constable / Sub-Inspector",
+    defense: "Multi-toned pressure horns are strictly illegal under CMVR Rule 119. Silence zones extend 100m around hospitals/schools."
+  },
+  {
+    id: 25,
+    offence: "Non-Compliant / Decorative License Plate (HSRP)",
+    offence_hi: "फैंसी या बिना HSRP नंबर प्लेट",
+    section: "CMVR Rule 50 r/w Section 177",
+    fine: "₹5,000 - ₹10,000",
+    authorized_rank: "Sub-Inspector",
+    defense: "Standard High Security Registration Plate (HSRP) with laser hologram mandatory for all vehicles."
+  },
+  {
+    id: 26,
+    offence: "Stop Line Violation at Intersections",
+    offence_hi: "चौराहे पर स्टॉप लाइन क्रॉस करना",
+    section: "DMVR 113(1) r/w Section 177",
+    fine: "₹500 (1st) / ₹1,500 (Repeat)",
+    authorized_rank: "Camera E-Challan / Traffic Officer",
+    defense: "Front tires must not cross marked stop line while signal is red."
+  },
+  {
+    id: 27,
+    offence: "Wrong, Obstructive, or No-Parking Parking",
+    offence_hi: "गलत या नो-पार्किंग में गाड़ी खड़ी करना",
+    section: "Section 122 r/w 177",
+    fine: "₹500 - ₹1,500 (+ Towing Fees)",
+    authorized_rank: "Traffic Police / Towing Unit",
+    defense: "No-parking zones must have clearly visible municipal signages. Towing fees regulated by local municipal rules."
+  },
+  {
+    id: 28,
+    offence: "Unauthorized Alterations / Structural Modifications",
+    offence_hi: "गाड़ी में अवैध संशोधन/मॉडिफिकेशन",
+    section: "Section 182A(4)",
+    fine: "₹5,000 per alteration",
+    authorized_rank: "RTO Inspector / Sub-Inspector",
+    defense: "Section 52 Proviso explicitly excludes stock OEM factory components certified under Form 22 ARAI Homologation."
+  },
+  {
+    id: 29,
+    offence: "Improper Lane Changes / Discipline Failure",
+    offence_hi: "बिना सिग्नल लेन बदलना या गलत लेन ड्राइविंग",
+    section: "Section 177A",
+    fine: "₹500 - ₹2,000",
+    authorized_rank: "Sub-Inspector / Highway Patrol",
+    defense: "Vehicles must signal before lane changes and yield fast lanes to overtaking vehicles."
+  },
+  {
+    id: 30,
+    offence: "Disobeying Lawful Orders / Refusing Info to Police",
+    offence_hi: "पुलिस अधिकारी के आदेश की अवहेलना करना",
+    section: "Section 179",
+    fine: "₹2,000",
+    authorized_rank: "Sub-Inspector & Above",
+    defense: "Refusing to stop when signaled by uniformed officer or withholding registration/driver details."
   }
 ];
