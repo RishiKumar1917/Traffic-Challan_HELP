@@ -17,6 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initModal();
   initApiKeyModal();
   initScannerModal();
+  initVoiceAssistant();
   initChatbotUI();
 });
 
@@ -96,11 +97,11 @@ function updateLanguageText() {
   const subtext = document.getElementById('hero-subtext');
 
   if (currentLang === 'hi') {
-    heading.innerHTML = 'ट्रैफिक पुलिस द्वारा रोके जाने पर <span>कानूनी सबूत</span> के साथ खड़े रहें';
-    subtext.textContent = 'सत्यापित MoRTH परिपत्र, धारा 4 IT अधिनियम डिजीलॉकर नियम, ओईएम कंपनी स्पेक्स, और अदालत के फैसलों तक त्वरित पहुंच प्राप्त करें।';
+    heading.innerHTML = 'ट्रैफिक पुलिस द्वारा रोके जाने पर <span>सरकारी सबूत</span> के साथ खड़े रहें';
+    subtext.textContent = 'अपनी स्थिति बोलकर बताएं — एआई कानूनी परिणाम का विश्लेषण करेगा, बोलने के लिए सटीक शब्द सुझाएगा और सरकारी सबूत दिखाएगा।';
   } else {
-    heading.innerHTML = 'Stand Firm with <span>Legal Proof</span> when Stopped by Traffic Police';
-    subtext.textContent = 'Access verified MoRTH circulars, Section 4 IT Act DigiLocker rules, OEM factory component homologation proof (Section 52 MV Act), scan e-challan slips with AI, and listen to voice readouts.';
+    heading.innerHTML = 'Stand Firm with <span>Official Legal Proof</span> when Stopped by Police';
+    subtext.textContent = 'Don\'t know what to say to traffic police? Speak your situation below — AI will analyze the legal outcome, suggest exact words to say, and display official Govt circular proofs instantly.';
   }
 
   renderEmergencyCards();
@@ -242,6 +243,62 @@ function speakCurrentTab(tabId) {
   }
 
   trafficAudioEngine.speak(textToSpeak, currentLang);
+}
+
+// Voice Assistant Listener & Modal
+function initVoiceAssistant() {
+  const cardVoice = document.getElementById('card-action-voice');
+  const modal = document.getElementById('voice-modal');
+  const modalClose = document.getElementById('voice-modal-close');
+  const modalBody = document.getElementById('voice-modal-body');
+
+  modalClose.addEventListener('click', () => modal.classList.remove('active'));
+
+  cardVoice.addEventListener('click', () => {
+    cardVoice.style.borderColor = 'var(--accent-rose)';
+    cardVoice.querySelector('h4').textContent = '🔴 Listening... Speak Now!';
+
+    trafficVoiceAnalyzer.startListening(
+      async (transcript) => {
+        cardVoice.style.borderColor = 'var(--accent-cyan)';
+        cardVoice.querySelector('h4').textContent = 'Speak Your Situation';
+
+        modalBody.innerHTML = `<p style="color: var(--accent-cyan);">⏳ Analyzing spoken story: <em>"${transcript}"</em>...</p>`;
+        modal.classList.add('active');
+
+        const analysis = await trafficVoiceAnalyzer.analyzeSpokenSituation(transcript);
+
+        if (typeof analysis === 'string') {
+          modalBody.innerHTML = formatMarkdownText(analysis);
+        } else {
+          modalBody.innerHTML = `
+            <p><strong>SPOKEN STORY:</strong> <em>"${transcript}"</em></p>
+            <hr style="border-color: var(--border-color); margin: 12px 0;">
+            <p><strong style="color: var(--accent-gold);">1. IDENTIFIED LEGAL OUTCOME:</strong></p>
+            <p style="background: var(--bg-primary); padding: 10px; border-radius: 6px; font-size: 0.9rem;">${analysis.outcome}</p>
+
+            <hr style="border-color: var(--border-color); margin: 12px 0;">
+            <p><strong style="color: var(--accent-cyan);">2. SUGGESTED WORDS TO SAY TO OFFICER:</strong></p>
+            <p style="background: var(--bg-primary); border-left: 3px solid var(--accent-cyan); padding: 10px; font-style: italic; font-size: 0.92rem;">${analysis.suggested_words}</p>
+            
+            <div style="display: flex; gap: 8px; margin-top: 10px;">
+              <button class="btn-icon" onclick="navigator.clipboard.writeText('${analysis.suggested_words.replace(/'/g, "\\'")}')">📋 Copy Words</button>
+              <button class="btn-icon" onclick="trafficAudioEngine.speak('${analysis.suggested_words.replace(/'/g, "\\'")}', '${currentLang}')">🔊 Play Voice</button>
+            </div>
+
+            <hr style="border-color: var(--border-color); margin: 12px 0;">
+            <p><strong style="color: var(--accent-emerald);">3. OFFICIAL DOCUMENT PROOF TO SHOW:</strong></p>
+            <a href="${analysis.document_link}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none; margin-top: 6px;">📄 Open ${analysis.document_title}</a>
+          `;
+        }
+      },
+      (err) => {
+        cardVoice.style.borderColor = 'var(--accent-cyan)';
+        cardVoice.querySelector('h4').textContent = 'Speak Your Situation';
+        alert(`Voice Assistant: ${err}`);
+      }
+    );
+  });
 }
 
 // Global Search Filter
@@ -400,7 +457,6 @@ function initScannerModal() {
       const ocrResult = await trafficVisionOCR.scanImage(file, mode);
       resultDisplay.innerHTML = formatMarkdownText(ocrResult);
 
-      // Pre-fill dispute fields if mock or parsed values match
       if (mode === 'challan') {
         const vehicleInput = document.getElementById('vehicleNo');
         const challanInput = document.getElementById('challanNo');

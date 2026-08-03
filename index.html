@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traffic-Challan HELP | Citizen Traffic Rights, PWA & AI Scanner Portal</title>
-  <meta name="description" content="Know your rights during traffic police stops in India. Access official MoRTH circulars, DigiLocker validity proofs, OEM component homologation rules (Section 52 MV Act), AI Vision Scanner, Voice Readout, and e-challan dispute generator.">
+  <title>Traffic-Challan HELP | Citizen Traffic Rights, Voice AI & Official Proofs</title>
+  <meta name="description" content="Know your rights during traffic police stops in India. Speak your situation using Voice AI, access official MoRTH circulars, DigiLocker validity proofs, OEM component homologation rules (Section 52 MV Act), Vision Scanner, and e-challan dispute generator.">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -23,7 +23,7 @@
         <div class="brand-logo">⚖️</div>
         <div class="brand-text">
           <h1>Traffic-Challan HELP</h1>
-          <p>Indian Traffic Rights, OEM Specs & AI Scanner</p>
+          <p>Indian Traffic Rights & Voice Legal Assistant</p>
         </div>
       </a>
       <div class="nav-actions">
@@ -35,16 +35,51 @@
     </div>
   </header>
 
-  <!-- Hero & Search Section -->
+  <!-- Action-First Hero Section -->
   <section class="hero">
-    <div class="hero-badge">📜 Verified Official Govt Circulars, Offline PWA & Gemini Vision AI</div>
-    <h2 id="hero-heading">Stand Firm with <span>Official Govt Proof</span> when Stopped by Traffic Police</h2>
-    <p id="hero-subtext">Access verified MoRTH circular letterheads, Section 4 IT Act Gazette rules, OEM factory component homologation proof (Section 52 MV Act), scan e-challan slips with AI, and listen to voice readouts.</p>
+    <div class="hero-badge">📜 Voice AI Assistant, Verified MoRTH Circulars & Gazette Proofs</div>
+    <h2 id="hero-heading">Stand Firm with <span>Official Legal Proof</span> when Stopped by Police</h2>
+    <p id="hero-subtext">Don't know what to say to traffic police? Speak your situation below — AI will analyze the legal outcome, suggest exact words to say, and display official Govt circular proofs instantly.</p>
+
+    <!-- 3 Primary Action Cards -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; margin: 30px 0 24px; text-align: left;">
+      
+      <!-- Action 1: Speak Situation -->
+      <div class="legal-card" style="border: 2px solid var(--accent-cyan); background: var(--bg-surface-hover); cursor: pointer;" id="card-action-voice">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+          <span style="font-size: 1.8rem;">🎙️</span>
+          <span class="card-badge" style="background: var(--accent-cyan); color: #090d16; margin: 0;">TAP TO SPEAK</span>
+        </div>
+        <h4 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 6px;">Speak Your Situation</h4>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">Tell us what happened in plain words — AI analyzes outcomes & suggests exact words to say.</p>
+      </div>
+
+      <!-- Action 2: Scan Slip or Part -->
+      <div class="legal-card" style="border: 1px solid var(--border-highlight); cursor: pointer;" onclick="document.getElementById('btn-open-scanner').click()">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+          <span style="font-size: 1.8rem;">📷</span>
+          <span class="card-badge" style="background: var(--accent-gold-soft); color: var(--accent-gold); margin: 0;">AI VISION</span>
+        </div>
+        <h4 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 6px;">Scan Slip or Part</h4>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">Upload e-challan notice or photo of stock silencer / alloy wheel for instant proof verification.</p>
+      </div>
+
+      <!-- Action 3: Browse Official Docs -->
+      <div class="legal-card" style="border: 1px solid var(--border-highlight); cursor: pointer;" onclick="document.querySelector('[data-tab=\'docs-tab\']').click()">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+          <span style="font-size: 1.8rem;">📄</span>
+          <span class="card-badge" style="background: var(--accent-emerald-soft); color: var(--accent-emerald); margin: 0;">OFFICIAL</span>
+        </div>
+        <h4 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 6px;">Official Letterheads</h4>
+        <p style="font-size: 0.85rem; color: var(--text-secondary);">Open official Govt of India MoRTH circular letterheads and Gazette seals directly.</p>
+      </div>
+
+    </div>
 
     <!-- Global Search Bar -->
     <div class="search-container">
       <div class="search-input-wrapper">
-        <input type="text" id="global-search" placeholder="Search offences, circular numbers, or OEM components (e.g. RT-11036, DigiLocker, stock exhaust)...">
+        <input type="text" id="global-search" placeholder="Or type your situation (e.g. DigiLocker refusal, stock RE exhaust, key snatching)...">
         <button id="btn-search">Search</button>
       </div>
     </div>
@@ -232,6 +267,19 @@
 
   </main>
 
+  <!-- Voice Assistant Result Modal -->
+  <div class="modal-overlay" id="voice-modal">
+    <div class="modal-card" style="border-color: var(--accent-cyan); max-width: 620px;">
+      <div class="modal-header" style="border-color: var(--accent-cyan);">
+        <h3 style="color: var(--accent-cyan);" id="voice-modal-header-title">🎙️ Spoken Situation & Legal Outcome</h3>
+        <button class="modal-close" id="voice-modal-close">&times;</button>
+      </div>
+      <div class="modal-body" id="voice-modal-body">
+        <!-- Rendered dynamically via app.js -->
+      </div>
+    </div>
+  </div>
+
   <!-- AI Vision OCR Scanner Modal -->
   <div class="modal-overlay" id="scanner-modal">
     <div class="modal-card" style="border-color: var(--accent-cyan); max-width: 620px;">
@@ -341,6 +389,7 @@
   <script src="js/chatbot.js"></script>
   <script src="js/audio-speech.js"></script>
   <script src="js/ocr-scanner.js"></script>
+  <script src="js/voice-analyzer.js"></script>
   <script src="js/app.js"></script>
 
 </body>
