@@ -1,6 +1,6 @@
-// Traffic-Challan HELP - Service Worker for Offline-First Capability
+// Traffic-Challan HELP - Service Worker (Cache Refresh v3)
 
-const CACHE_NAME = 'traffic-help-v2';
+const CACHE_NAME = 'traffic-help-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -13,6 +13,7 @@ const ASSETS_TO_CACHE = [
   './js/chatbot.js',
   './js/audio-speech.js',
   './js/ocr-scanner.js',
+  './js/voice-analyzer.js',
   './js/app.js',
   './docs/OFFICIAL_GOVT_CIRCULARS_INDEX.md',
   './docs/MoRTH_Circular_RT11036_64_2017_MV.html',
@@ -20,9 +21,9 @@ const ASSETS_TO_CACHE = [
 ];
 
 self.addEventListener('install', (event) => {
+  console.log('[Service Worker] Installing v3 cache');
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Caching static assets');
       return cache.addAll(ASSETS_TO_CACHE);
     })
   );
@@ -30,12 +31,13 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  console.log('[Service Worker] Activating v3 cache');
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
-            console.log('[Service Worker] Removing old cache', key);
+            console.log('[Service Worker] Deleting old cache:', key);
             return caches.delete(key);
           }
         })
@@ -47,16 +49,16 @@ self.addEventListener('activate', (event) => {
 
 self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        return cachedResponse;
-      }
-      return fetch(event.request).catch(() => {
-        // Fallback for html pages offline
-        if (event.request.headers.get('accept').includes('text/html')) {
-          return caches.match('./index.html');
+    fetch(event.request)
+      .then((networkResponse) => {
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_NAME).then((cache) => {
+            cache.put(event.request, responseClone);
+          });
         }
-      });
-    })
+        return networkResponse;
+      })
+      .catch(() => caches.match(event.request))
   );
 });
