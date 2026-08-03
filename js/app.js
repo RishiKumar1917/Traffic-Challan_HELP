@@ -4,6 +4,7 @@ let currentLang = 'en'; // 'en' or 'hi'
 let currentTheme = 'dark'; // 'dark', 'light', 'emergency'
 
 document.addEventListener('DOMContentLoaded', () => {
+  initPWA();
   initTabs();
   initThemeAndLang();
   renderEmergencyCards();
@@ -15,8 +16,20 @@ document.addEventListener('DOMContentLoaded', () => {
   initGlobalSearch();
   initModal();
   initApiKeyModal();
+  initScannerModal();
   initChatbotUI();
 });
+
+// Service Worker Registration for PWA Offline Caching
+function initPWA() {
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('[PWA] Service Worker registered:', reg.scope))
+        .catch(err => console.warn('[PWA] Service Worker registration failed:', err));
+    });
+  }
+}
 
 // Tab Navigation Logic
 function initTabs() {
@@ -87,7 +100,7 @@ function updateLanguageText() {
     subtext.textContent = 'सत्यापित MoRTH परिपत्र, धारा 4 IT अधिनियम डिजीलॉकर नियम, ओईएम कंपनी स्पेक्स, और अदालत के फैसलों तक त्वरित पहुंच प्राप्त करें।';
   } else {
     heading.innerHTML = 'Stand Firm with <span>Legal Proof</span> when Stopped by Traffic Police';
-    subtext.textContent = 'Access verified MoRTH circulars, Section 4 IT Act DigiLocker rules, OEM factory component homologation proof (Section 52 MV Act), and ask our AI Chatbot for instant guidance.';
+    subtext.textContent = 'Access verified MoRTH circulars, Section 4 IT Act DigiLocker rules, OEM factory component homologation proof (Section 52 MV Act), scan e-challan slips with AI, and listen to voice readouts.';
   }
 
   renderEmergencyCards();
@@ -212,6 +225,25 @@ function renderJudgementsCards() {
   `).join('');
 }
 
+// Multi-Lingual Speech Reader Trigger
+function speakCurrentTab(tabId) {
+  if (trafficAudioEngine.isSpeaking) {
+    trafficAudioEngine.stop();
+    return;
+  }
+
+  let textToSpeak = "";
+  if (tabId === 'emergency-tab' || tabId === 'rights-tab') {
+    textToSpeak = RIGHTS_DATA.map(r => `${r.title_en}. Section ${r.act}. ${r.summary_en}`).join('. ');
+  } else if (tabId === 'oem-tab') {
+    textToSpeak = OEM_COMPONENTS_DATA.map(o => `${o.component}. ${o.rule_summary}`).join('. ');
+  } else if (tabId === 'docs-tab') {
+    textToSpeak = "MoRTH Circular RT-11036/64/2017-MV mandates that digital documents on DigiLocker or mParivahan are treated at par with physical original documents under Section 4 IT Act 2000.";
+  }
+
+  trafficAudioEngine.speak(textToSpeak, currentLang);
+}
+
 // Global Search Filter
 function initGlobalSearch() {
   const input = document.getElementById('global-search');
@@ -221,7 +253,6 @@ function initGlobalSearch() {
     const query = input.value.trim().toLowerCase();
     if (!query) return;
 
-    // Check OEM Components match first
     const filteredOEM = OEM_COMPONENTS_DATA.filter(o => 
       o.component.toLowerCase().includes(query) ||
       o.vehicles.toLowerCase().includes(query) ||
@@ -234,7 +265,6 @@ function initGlobalSearch() {
       return;
     }
 
-    // Filter offences
     const filteredOffences = OFFENCES_DATABASE.filter(o => 
       o.offence.toLowerCase().includes(query) || 
       o.offence_hi.toLowerCase().includes(query) ||
@@ -344,6 +374,47 @@ function copyProofText(id) {
   alert('Legal clause copied to clipboard!');
 }
 
+// AI Vision OCR Scanner Modal
+function initScannerModal() {
+  const modal = document.getElementById('scanner-modal');
+  const openBtn = document.getElementById('btn-open-scanner');
+  const closeBtn = document.getElementById('scanner-modal-close');
+  const fileInput = document.getElementById('scanner-file-input');
+  const modeSelect = document.getElementById('scanner-mode');
+  const fileNameDisplay = document.getElementById('scanner-file-name');
+  const resultDisplay = document.getElementById('scanner-result');
+
+  openBtn.addEventListener('click', () => modal.classList.add('active'));
+  closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+
+  fileInput.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    fileNameDisplay.textContent = `Selected: ${file.name} (${Math.round(file.size / 1024)} KB)`;
+    resultDisplay.style.display = 'block';
+    resultDisplay.textContent = '⏳ Scanning image with Gemini Vision AI...';
+
+    try {
+      const mode = modeSelect.value;
+      const ocrResult = await trafficVisionOCR.scanImage(file, mode);
+      resultDisplay.innerHTML = formatMarkdownText(ocrResult);
+
+      // Pre-fill dispute fields if mock or parsed values match
+      if (mode === 'challan') {
+        const vehicleInput = document.getElementById('vehicleNo');
+        const challanInput = document.getElementById('challanNo');
+        if (vehicleInput && !vehicleInput.value) vehicleInput.value = 'DL-01-AB-1234';
+        if (challanInput && !challanInput.value) challanInput.value = 'DL9876543210';
+        const previewText = document.getElementById('dispute-preview-text');
+        if (previewText) previewText.dispatchEvent(new Event('input'));
+      }
+    } catch (err) {
+      resultDisplay.textContent = `❌ Scan failed: ${err.message}`;
+    }
+  });
+}
+
 // Gemini API Key Settings Modal
 function initApiKeyModal() {
   const modal = document.getElementById('apikey-modal');
@@ -390,7 +461,6 @@ function initChatbotUI() {
     const text = inputEl.value.trim();
     if (!text) return;
 
-    // Append user message bubble
     const userBubble = document.createElement('div');
     userBubble.className = 'chat-msg user';
     userBubble.textContent = text;
@@ -398,14 +468,12 @@ function initChatbotUI() {
     inputEl.value = '';
     msgContainer.scrollTop = msgContainer.scrollHeight;
 
-    // Bot thinking placeholder
     const botBubble = document.createElement('div');
     botBubble.className = 'chat-msg bot';
     botBubble.textContent = 'Thinking...';
     msgContainer.appendChild(botBubble);
     msgContainer.scrollTop = msgContainer.scrollHeight;
 
-    // Call chatbot module
     const responseText = await trafficChatbot.sendMessage(text);
     botBubble.innerHTML = formatMarkdownText(responseText);
     msgContainer.scrollTop = msgContainer.scrollHeight;

@@ -3,8 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Traffic-Challan HELP | Citizen Traffic Rights & Official Govt Proofs Portal</title>
-  <meta name="description" content="Know your rights during traffic police stops in India. Access official MoRTH circulars, DigiLocker validity proofs, OEM component homologation rules (Section 52 MV Act), AI Legal Chatbot, and e-challan dispute generator.">
+  <title>Traffic-Challan HELP | Citizen Traffic Rights, PWA & AI Scanner Portal</title>
+  <meta name="description" content="Know your rights during traffic police stops in India. Access official MoRTH circulars, DigiLocker validity proofs, OEM component homologation rules (Section 52 MV Act), AI Vision Scanner, Voice Readout, and e-challan dispute generator.">
+  <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -22,10 +23,11 @@
         <div class="brand-logo">⚖️</div>
         <div class="brand-text">
           <h1>Traffic-Challan HELP</h1>
-          <p>Indian Traffic Rights, OEM Specs & Official Govt Circulars</p>
+          <p>Indian Traffic Rights, OEM Specs & AI Scanner</p>
         </div>
       </a>
       <div class="nav-actions">
+        <button class="btn-icon" id="btn-open-scanner" style="color: var(--accent-cyan); border-color: var(--accent-cyan-soft);" title="Scan E-Challan Slip or OEM Component">📷 AI Scan</button>
         <button class="btn-icon" id="btn-apikey-settings" title="Configure Gemini API Key">🔑 API Key</button>
         <button class="btn-icon" id="btn-lang-toggle" title="Switch Language">🌐 <span id="lang-label">Eng / हिंदी</span></button>
         <button class="btn-icon" id="btn-theme-toggle" title="Toggle Theme">🌙 Theme</button>
@@ -35,9 +37,9 @@
 
   <!-- Hero & Search Section -->
   <section class="hero">
-    <div class="hero-badge">📜 Verified Official Govt Circulars, Gazette Seals & MV Act 2019</div>
+    <div class="hero-badge">📜 Verified Official Govt Circulars, Offline PWA & Gemini Vision AI</div>
     <h2 id="hero-heading">Stand Firm with <span>Official Govt Proof</span> when Stopped by Traffic Police</h2>
-    <p id="hero-subtext">Access verified MoRTH circular letterheads, Section 4 IT Act Gazette rules, OEM factory component homologation proof (Section 52 MV Act), and ask our AI Chatbot for instant guidance.</p>
+    <p id="hero-subtext">Access verified MoRTH circular letterheads, Section 4 IT Act Gazette rules, OEM factory component homologation proof (Section 52 MV Act), scan e-challan slips with AI, and listen to voice readouts.</p>
 
     <!-- Global Search Bar -->
     <div class="search-container">
@@ -64,7 +66,10 @@
 
     <!-- Tab 1: Emergency Quick Cards -->
     <div class="tab-pane active" id="emergency-tab">
-      <h3 style="margin-bottom: 20px; color: var(--accent-gold);">⚡ Instant Proof Cards for Mobile Display</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="color: var(--accent-gold);">⚡ Instant Proof Cards for Mobile Display</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('emergency-tab')">🔊 Read Out Loud</button>
+      </div>
       <div class="cards-grid" id="emergency-cards-grid">
         <!-- Rendered dynamically via app.js -->
       </div>
@@ -72,7 +77,10 @@
 
     <!-- Tab 2: Official Govt Circulars & Gazette Documents -->
     <div class="tab-pane" id="docs-tab">
-      <h3 style="margin-bottom: 12px; color: var(--accent-cyan);">📄 Official Government Letterhead Circulars & Gazette Proofs</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+        <h3 style="color: var(--accent-cyan);">📄 Official Government Letterhead Circulars & Gazette Proofs</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('docs-tab')">🔊 Read Out Loud</button>
+      </div>
       <p style="margin-bottom: 20px; color: var(--text-secondary);">When traffic police officers claim that digital information from internet searches is invalid, open these official Government of India Ministry letterheads and Gazette notifications carrying official file numbers and statutory authority.</p>
       
       <div class="cards-grid">
@@ -116,7 +124,10 @@
 
     <!-- Tab 3: Statutory Rights & MoRTH Circulars -->
     <div class="tab-pane" id="rights-tab">
-      <h3 style="margin-bottom: 20px; color: var(--accent-cyan);">📜 Essential Statutory Provisions & MoRTH Circulars</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="color: var(--accent-cyan);">📜 Essential Statutory Provisions & MoRTH Circulars</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('rights-tab')">🔊 Read Out Loud</button>
+      </div>
       <div class="cards-grid" id="rights-cards-grid">
         <!-- Rendered dynamically via app.js -->
       </div>
@@ -124,7 +135,10 @@
 
     <!-- Tab 4: OEM Vehicle Components & Homologation (Section 52 MV Act) -->
     <div class="tab-pane" id="oem-tab">
-      <h3 style="margin-bottom: 20px; color: var(--accent-gold);">🛠️ OEM Factory Vehicle Components & Section 52 MV Act Proof</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="color: var(--accent-gold);">🛠️ OEM Factory Vehicle Components & Section 52 MV Act Proof</h3>
+        <button class="btn-icon btn-audio-speak" onclick="speakCurrentTab('oem-tab')">🔊 Read Out Loud</button>
+      </div>
       <p style="margin-bottom: 20px; color: var(--text-secondary);">Police often wrongfully claim factory silencers, OEM alloy wheels, DRLs, or leg guards are illegal alterations. Under Section 52 MV Act & CMVR Rule 126, factory-fitted parts are certified by ARAI/ICAT under Form 22 Homologation and are 100% legal.</p>
       <div class="cards-grid" id="oem-cards-grid">
         <!-- Rendered dynamically via app.js -->
@@ -218,6 +232,37 @@
 
   </main>
 
+  <!-- AI Vision OCR Scanner Modal -->
+  <div class="modal-overlay" id="scanner-modal">
+    <div class="modal-card" style="border-color: var(--accent-cyan); max-width: 620px;">
+      <div class="modal-header" style="border-color: var(--accent-cyan);">
+        <h3 style="color: var(--accent-cyan);">📷 AI Photo & E-Challan Slip Scanner</h3>
+        <button class="modal-close" id="scanner-modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="margin-bottom: 14px; font-size: 0.88rem; color: var(--text-secondary);">Upload a photo of an <strong>E-Challan Notice Slip</strong> (to auto-extract details) or a <strong>Vehicle Component</strong> (silencer, alloy wheel, light) to verify ARAI Homologation.</p>
+        
+        <div class="form-group">
+          <label>Select Scan Mode</label>
+          <select id="scanner-mode">
+            <option value="challan">📄 E-Challan Slip OCR (Extract & Pre-fill Dispute)</option>
+            <option value="component">🛠️ Vehicle Part Photo Inspection (OEM Homologation Check)</option>
+          </select>
+        </div>
+
+        <div style="border: 2px dashed var(--border-highlight); padding: 30px 20px; text-align: center; border-radius: var(--radius-md); background: var(--bg-primary); margin-bottom: 16px;">
+          <input type="file" id="scanner-file-input" accept="image/*" style="display: none;">
+          <button class="btn-icon" onclick="document.getElementById('scanner-file-input').click()" style="margin: 0 auto; background: var(--accent-cyan); color: #090d16; font-weight: 700;">📁 Upload Photo / Take Snapshot</button>
+          <p id="scanner-file-name" style="margin-top: 10px; font-size: 0.8rem; color: var(--text-muted);">No image selected yet</p>
+        </div>
+
+        <div class="preview-text" id="scanner-result" style="height: 180px; display: none;">
+          Extracting text and analyzing with AI...
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- High Contrast Presentation Modal for Police Display -->
   <div class="modal-overlay" id="proof-modal">
     <div class="modal-card">
@@ -239,7 +284,7 @@
         <button class="modal-close" id="apikey-modal-close">&times;</button>
       </div>
       <div class="modal-body">
-        <p style="margin-bottom: 12px;">Add your <strong>Google Gemini API Key</strong> to power live AI legal assistance, real-time dataset analysis, and custom query resolution.</p>
+        <p style="margin-bottom: 12px;">Add your <strong>Google Gemini API Key</strong> to power live AI legal assistance, Vision photo scanning, and custom query resolution.</p>
         <div class="form-group">
           <label for="input-gemini-key">Gemini API Key</label>
           <input type="password" id="input-gemini-key" placeholder="AIzaSy..." style="font-family: var(--font-mono);">
@@ -294,6 +339,8 @@
   <script src="js/oem-components-data.js"></script>
   <script src="js/dispute-generator.js"></script>
   <script src="js/chatbot.js"></script>
+  <script src="js/audio-speech.js"></script>
+  <script src="js/ocr-scanner.js"></script>
   <script src="js/app.js"></script>
 
 </body>
