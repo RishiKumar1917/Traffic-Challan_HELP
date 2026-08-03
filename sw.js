@@ -1,6 +1,6 @@
-// Traffic-Challan HELP - Service Worker (Cache Refresh v3)
+// Traffic-Challan HELP - Service Worker (Cache Refresh v4)
 
-const CACHE_NAME = 'traffic-help-v3';
+const CACHE_NAME = 'traffic-help-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -15,13 +15,12 @@ const ASSETS_TO_CACHE = [
   './js/ocr-scanner.js',
   './js/voice-analyzer.js',
   './js/app.js',
-  './docs/OFFICIAL_GOVT_CIRCULARS_INDEX.md',
+  './docs/OFFICIAL_GOVT_CIRCULARS_INDEX.html',
   './docs/MoRTH_Circular_RT11036_64_2017_MV.html',
   './docs/Section_52_ARAI_Homologation_Proof.html'
 ];
 
 self.addEventListener('install', (event) => {
-  console.log('[Service Worker] Installing v3 cache');
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(ASSETS_TO_CACHE);
@@ -31,13 +30,11 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
-  console.log('[Service Worker] Activating v3 cache');
   event.waitUntil(
     caches.keys().then((keys) => {
       return Promise.all(
         keys.map((key) => {
           if (key !== CACHE_NAME) {
-            console.log('[Service Worker] Deleting old cache:', key);
             return caches.delete(key);
           }
         })

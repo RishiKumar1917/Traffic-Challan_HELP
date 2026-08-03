@@ -7,43 +7,55 @@
   <style>
     body {
       font-family: 'Times New Roman', Times, serif;
-      background: #fdfdfd;
+      background: #0f172a;
       color: #000;
-      padding: 40px 20px;
+      padding: 30px 16px;
       line-height: 1.6;
     }
     .paper {
-      max-width: 800px;
+      max-width: 820px;
       margin: 0 auto;
-      background: #fff;
-      border: 1px solid #ccc;
-      padding: 50px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      background: #ffffff;
+      border: 2px solid #334155;
+      padding: 45px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      border-radius: 6px;
     }
     .header {
       text-align: center;
       border-bottom: 2px solid #000;
-      padding-bottom: 15px;
-      margin-bottom: 25px;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
     }
-    .header h1 {
-      font-size: 1.3rem;
-      margin: 0;
-      text-transform: uppercase;
-    }
+    .header h1 { font-size: 1.3rem; margin: 0; text-transform: uppercase; }
     .subject {
       font-weight: bold;
       margin-bottom: 20px;
       background: #f5f5f5;
-      padding: 10px;
+      padding: 12px;
       border-left: 4px solid #000;
     }
-    .box {
-      border: 1px solid #000;
-      padding: 15px;
-      margin: 20px 0;
-      background: #fafafa;
+
+    /* Statutory Yellow Legal Highlighter Effect */
+    .legal-highlight {
+      background: #ffe600;
+      color: #000;
+      padding: 12px 14px;
+      border-radius: 4px;
+      font-weight: 700;
+      box-shadow: 0 0 12px rgba(255, 230, 0, 0.6);
+      display: block;
+      margin: 16px 0;
+      border-left: 4px solid #d97706;
+      animation: highlightPulse 2s infinite ease-in-out;
     }
+
+    @keyframes highlightPulse {
+      0% { box-shadow: 0 0 10px rgba(255, 230, 0, 0.4); }
+      50% { box-shadow: 0 0 22px rgba(255, 230, 0, 0.9); }
+      100% { box-shadow: 0 0 10px rgba(255, 230, 0, 0.4); }
+    }
+
     .stamp {
       display: inline-block;
       border: 2px solid #059669;
@@ -69,9 +81,12 @@
     </div>
 
     <p><strong>Section 52(1) Proviso of Motor Vehicles Act, 1988:</strong></p>
-    <div class="box">
-      <em>"Provided that nothing in this section shall apply to the alteration of, or replacement of any part of, a motor vehicle with a part, component or sub-assembly specified by the manufacturer of the vehicle, or certified by a testing agency specified under Rule 126 of the Central Motor Vehicles Rules, 1989."</em>
-    </div>
+
+    <!-- HIGHLIGHTED SECTION 52 PROVISO CLAUSE -->
+    <mark id="highlight-section52" class="legal-highlight">
+      ⚡ STATUTORY PROVISO TO SECTION 52(1):<br>
+      "Provided that nothing in this section shall apply to the alteration of, or replacement of any part of, a motor vehicle with a part, component or sub-assembly SPECIFIED BY THE MANUFACTURER of the vehicle, or CERTIFIED BY A TESTING AGENCY (ARAI/ICAT) specified under Rule 126 of the Central Motor Vehicles Rules, 1989."
+    </mark>
 
     <p><strong>Testing Agencies Authorized Under Rule 126 CMVR 1989:</strong></p>
     <ul>
