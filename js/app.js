@@ -125,7 +125,7 @@ function renderEmergencyCards() {
       <div>
         <div class="card-verbatim">📜 "${item.verbatim_text}"</div>
         <div class="card-actions">
-          <button class="btn-secondary" onclick="openProofModal('${item.id}')">Present Full Proof Screen</button>
+          <a href="${item.proof_link}" target="_blank" class="btn-secondary" style="text-decoration: none;">📄 Open Official Proof</a>
         </div>
       </div>
     </div>
@@ -149,7 +149,7 @@ function renderRightsCards() {
         <div class="card-tip">💡 <strong>Action Tip:</strong> ${item.actionable_tip}</div>
         <div class="card-actions">
           <button class="btn-secondary" onclick="copyProofText('${item.id}')">Copy Clause</button>
-          <button class="btn-secondary" onclick="openProofModal('${item.id}')">Inspect Official Text</button>
+          <a href="${item.proof_link}" target="_blank" class="btn-secondary" style="text-decoration: none;">Inspect Official Text</a>
         </div>
       </div>
     </div>
@@ -182,7 +182,7 @@ function renderOEMCards() {
   `).join('');
 }
 
-// Render Fines & Offences Table
+// Render Fines & Offences Table with Direct Proof Links for All 30 Violations
 function renderFinesTable() {
   const tbody = document.getElementById('fines-table-body');
   if (!tbody) return;
@@ -193,7 +193,10 @@ function renderFinesTable() {
       <td><span style="font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 700;">${item.section}</span></td>
       <td><span class="fine-badge">${item.fine}</span></td>
       <td><strong>${item.authorized_rank}</strong></td>
-      <td><span style="font-size: 0.82rem; color: var(--text-secondary);">${item.defense}</span></td>
+      <td>
+        <span style="font-size: 0.82rem; color: var(--text-secondary); display: block; margin-bottom: 6px;">${item.defense}</span>
+        <a href="${item.proof_link}" target="_blank" class="btn-secondary" style="display: inline-block; padding: 3px 8px; font-size: 0.72rem; text-decoration: none;">📄 Open Proof</a>
+      </td>
     </tr>
   `).join('');
 }
@@ -376,7 +379,10 @@ function initGlobalSearch() {
           <td><span style="font-family: var(--font-mono); color: var(--accent-cyan); font-weight: 700;">${item.section}</span></td>
           <td><span class="fine-badge">${item.fine}</span></td>
           <td><strong>${item.authorized_rank}</strong></td>
-          <td><span style="font-size: 0.85rem; color: var(--text-secondary);">${item.defense}</span></td>
+          <td>
+            <span style="font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 4px;">${item.defense}</span>
+            <a href="${item.proof_link}" target="_blank" class="btn-secondary" style="display: inline-block; padding: 3px 8px; font-size: 0.72rem; text-decoration: none;">📄 Open Proof</a>
+          </td>
         </tr>
       `).join('');
     } else {
@@ -454,6 +460,9 @@ function openProofModal(id) {
     <hr style="border-color: #ffe600; margin: 16px 0;">
     <p><strong>CITIZEN RIGHT SUMMARY:</strong> ${item.summary_en}</p>
     <p><strong>हिंदी विवरण:</strong> ${item.summary_hi}</p>
+    <div style="margin-top: 14px;">
+      <a href="${item.proof_link}" target="_blank" class="btn-secondary" style="display: inline-block; text-decoration: none;">📄 Open Full Gazette Proof Screen</a>
+    </div>
   `;
 
   modal.classList.add('active');

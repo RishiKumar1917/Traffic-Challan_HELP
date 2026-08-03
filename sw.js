@@ -1,6 +1,6 @@
-// Traffic-Challan HELP - Service Worker (Cache Refresh v6)
+// Traffic-Challan HELP - Service Worker (Cache Refresh v7)
 
-const CACHE_NAME = 'traffic-help-v6';
+const CACHE_NAME = 'traffic-help-v7';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -18,6 +18,9 @@ const ASSETS_TO_CACHE = [
   './docs/OFFICIAL_GOVT_CIRCULARS_INDEX.html',
   './docs/MoRTH_Circular_RT11036_64_2017_MV.html',
   './docs/Section_52_ARAI_Homologation_Proof.html',
+  './docs/MV_Act_Batch_1_Statutory_Proofs.html',
+  './docs/MV_Act_Batch_2_Statutory_Proofs.html',
+  './docs/MV_Act_Batch_3_Statutory_Proofs.html',
   './docs/Deep_dive.md'
 ];
 
