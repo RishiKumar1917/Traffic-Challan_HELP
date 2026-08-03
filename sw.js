@@ -1,6 +1,6 @@
-// Traffic-Challan HELP - Service Worker (Cache Refresh v7)
+// Traffic-Challan HELP - Service Worker (Cache Refresh v8)
 
-const CACHE_NAME = 'traffic-help-v7';
+const CACHE_NAME = 'traffic-help-v8';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
